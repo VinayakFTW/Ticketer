@@ -1,0 +1,17 @@
+[project]
+name = "ticketer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.141.1",
+    "fastmcp>=4.0.10",
+    "httpx>=0.28.1",
+    "langchain>=1.4.2",
+    "langchain-openai>=1.6.6",
+    "langgraph>=1.2.12",
+    "laya>=0.3.20",
+    "openai>=3.19.2",
+    "uvicorn>=0.54.0",
+]
