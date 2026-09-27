@@ -16,13 +16,13 @@ LAYA_TICKET_CONFIG = {
             "safety_committee": "Ragging, harassment, physical danger, critical grievance requiring disciplinary intervention.",
         },
     },
-    "urgency": {
+    "priority": {
         "type": "score",
-        "instructions": "What is the operational urgency or priority level?",
+        "instructions": "Determine operational urgency based on impact and deadlines.",
         "criteria": ["low", "medium", "urgent", "critical"],
     },
     "is_safety_grievance": {
-        "type": "noul",
+        "type": "boolean",
         "instructions": "Does this report involve ragging, harassment, safety risks, or emergency physical hazard?",
     },
 }
