@@ -1,5 +1,6 @@
-from typing import TypedDict, Literal
+from typing import Literal
 from pydantic import BaseModel, Field
+
 
 class TicketDecision(BaseModel):
     summary_reason: str = Field(
@@ -28,6 +29,7 @@ class TicketDecision(BaseModel):
     is_safety_grievance: bool = Field(
         description="True ONLY if the ticket mentions ragging, harassment, violence, or direct physical danger."
     )
+
 
 class CreateTicketRequest(BaseModel):
     ticket_id: str

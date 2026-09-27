@@ -1,14 +1,13 @@
 from sqlalchemy import Integer, String, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship, mapped_column, Mapped, DeclarativeBase
 from typing import Optional, List
-import os
-from dotenv import load_dotenv
 from sqlalchemy import create_engine
-load_dotenv()
 
+from brain.config import ENVIRONMENT_VARIABLES
 from schemas.enums import TicketPriority, TicketStatus
 
-engine = create_engine(os.getenv("POSTGRES_URL"), echo=True)
+Engine = create_engine(ENVIRONMENT_VARIABLES.get("POSTGRES_URL"), echo=True)
+
 
 class Base(DeclarativeBase):
     pass
@@ -48,6 +47,16 @@ class Ticket(Base):
     last_bump_time: Mapped[Optional[DateTime]] = mapped_column(DateTime, nullable=True)
 
     user: Mapped["User"] = relationship("User", back_populates="tickets")
-    
 
-Base.metadata.create_all(engine)
+
+class Sessions(Base):
+    __tablename__ = "sessions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    session_id: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    created_at: Mapped[DateTime] = mapped_column(DateTime, nullable=False)
+    last_accessed_at: Mapped[DateTime] = mapped_column(DateTime, nullable=False)
+    messages: Mapped[str] = mapped_column(String, nullable=False)  # JSON string
+
+
+Base.metadata.create_all(Engine)
