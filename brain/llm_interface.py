@@ -5,7 +5,7 @@ from utils.server_response import server_response
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
 
 
-class LLMInterface:
+class LLMRouter:
     def __init__(self, session_id=None):
         self.llm = OpenAI(
             api_key=ENVIRONMENT_VARIABLES.get("OPENAI_API_KEY"),

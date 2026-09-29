@@ -29,10 +29,3 @@ class TicketDecision(BaseModel):
     is_safety_grievance: bool = Field(
         description="True ONLY if the ticket mentions ragging, harassment, violence, or direct physical danger."
     )
-
-
-class CreateTicketRequest(BaseModel):
-    ticket_id: str
-    user_id: str
-    text: str
-    created_at: str

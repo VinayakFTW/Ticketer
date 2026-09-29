@@ -14,7 +14,7 @@ STATIC_TEXT = {
 }
 
 
-def load_session(session_id):
+async def load_session(session_id):
     with Session(Engine) as s:
         try:
             session = (

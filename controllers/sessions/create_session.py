@@ -15,9 +15,9 @@ STATIC_TEXT = {
 }
 
 
-def create_session():
+async def create_session():
     session = Sessions(
-        session_id=uuid.uuid4().hex,
+        session_id=uuid.uuid4(),
         created_at=datetime.now(),
         last_accessed_at=datetime.now(),
         messages=json.dumps(
@@ -39,6 +39,6 @@ def create_session():
             s.close()
             return server_response(
                 status_code=SUCCESS,
-                data={"session_id": session_id},
+                data={"session_id": session.session_id},
                 message=STATIC_TEXT.session_created,
             )
