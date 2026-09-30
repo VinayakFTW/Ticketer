@@ -1,11 +1,12 @@
 from fastapi import APIRouter
 
+from constants.server_codes import SERVER_BASE_URL
 from controllers.sessions.load_session import load_session
 from controllers.sessions.save_session import save_session
 from controllers.sessions.get_all_sessions import get_all_sessions
 from controllers.sessions.create_session import create_session
 
-SESSION_ROUTER = APIRouter(route_prefix="/api/v1/sessions", tags=["Sessions API"])
+SESSION_ROUTER = APIRouter(prefix=f"{SERVER_BASE_URL}/sessions", tags=["Sessions API"])
 
 SESSION_ROUTER.add_api_route("/all", get_all_sessions, methods=["GET"])
 SESSION_ROUTER.add_api_route("/create", create_session, methods=["POST"])

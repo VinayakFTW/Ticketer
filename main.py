@@ -6,7 +6,7 @@ from routes.session_routes import SESSION_ROUTER
 from routes.ticket_routes import TICKET_ROUTER
 from routes.ai_routes import AI_ROUTER
 
-server = FastAPI(name="Ticketer Server", version="0.1.0")
+server = FastAPI(title="Ticketer Server", version="0.1.0")
 
 server.add_middleware(
     CORSMiddleware,

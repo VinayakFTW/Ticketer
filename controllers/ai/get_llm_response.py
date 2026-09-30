@@ -1,3 +1,4 @@
+from types import SimpleNamespace
 from sqlalchemy.orm import Session
 
 from brain.llm_interface import LLMRouter
@@ -6,9 +7,9 @@ from constants.server_codes import SUCCESS, NOT_FOUND
 from schemas.postgredb_schema import Ticket
 from schemas.postgredb_schema import Engine
 
-STATIC_TEXT = {
-    "ticket_not_found": "Ticket not found for the given session_id.",
-}
+STATIC_TEXT = SimpleNamespace(
+    ticket_not_found="Ticket not found for the given session_id.",
+)
 
 
 async def get_llm_response(session_id, user_message):

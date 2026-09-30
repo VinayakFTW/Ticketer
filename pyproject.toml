@@ -13,6 +13,7 @@ dependencies = [
     "langgraph>=1.2.12",
     "laya>=0.3.20",
     "openai>=3.19.2",
+    "psycopg[binary]>=3.3.6",
     "sqlalchemy[asyncio]>=2.1.1",
     "uvicorn>=0.54.0",
 ]

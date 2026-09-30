@@ -1,4 +1,5 @@
 import json
+from types import SimpleNamespace
 from sqlalchemy.orm import Session
 
 from schemas.postgredb_schema import Sessions
@@ -7,11 +8,11 @@ from utils.server_response import server_response
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR, NOT_FOUND
 
 
-STATIC_TEXT = {
-    "session_loaded": "Session loaded successfully",
-    "session_not_found": "Session not found",
-    "session_load_error": "Error loading session",
-}
+STATIC_TEXT = SimpleNamespace(
+    session_loaded="Session loaded successfully",
+    session_not_found="Session not found",
+    session_load_error="Error loading session",
+)
 
 
 async def load_session(session_id):

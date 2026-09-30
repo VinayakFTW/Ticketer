@@ -1,16 +1,16 @@
 from sqlalchemy.orm import Session
-import json
+from types import SimpleNamespace
 
 from schemas.postgredb_schema import Ticket
 from schemas.postgredb_schema import Engine
 from utils.server_response import server_response
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR, NOT_FOUND
 
-STATIC_TEXT = {
-    "tickets_retrieved": "Tickets retrieved successfully",
-    "no_tickets_found": "No tickets found",
-    "ticket_retrieval_error": "Error retrieving tickets",
-}
+STATIC_TEXT = SimpleNamespace(
+    tickets_retrieved="Tickets retrieved successfully",
+    no_tickets_found="No tickets found",
+    ticket_retrieval_error="Error retrieving tickets",
+)
 
 
 async def get_all_tickets():

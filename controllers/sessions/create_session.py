@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 import json
 import uuid
+from types import SimpleNamespace
 
 from brain.config import SYSTEM_PROMPT
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
@@ -9,10 +10,11 @@ from schemas.postgredb_schema import Sessions
 from schemas.postgredb_schema import Engine
 from utils.server_response import server_response
 
-STATIC_TEXT = {
-    "session_created": "Session created successfully",
-    "session_creation_error": "Error creating session",
-}
+
+STATIC_TEXT = SimpleNamespace(
+    session_created="Session created successfully",
+    session_creation_error="Error creating session",
+)
 
 
 async def create_session():

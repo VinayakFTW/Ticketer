@@ -1,15 +1,16 @@
 from sqlalchemy.orm import Session
-
+from types import SimpleNamespace
 from schemas.postgredb_schema import User
 from schemas.postgredb_schema import Engine
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
 from utils.server_response import server_response
 
 
-STATIC_TEXT = {
-    "user_created": "User created successfully",
-    "user_creation_error": "Error creating user",
-}
+
+STATIC_TEXT = SimpleNamespace(
+    user_created="User created successfully",
+    user_creation_error="Error creating user",
+)
 
 async def create_user(user_data):
     with Session(Engine) as s:

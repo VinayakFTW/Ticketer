@@ -2,6 +2,7 @@ from sqlalchemy import Integer, String, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship, mapped_column, Mapped, DeclarativeBase
 from typing import Optional, List
 from sqlalchemy import create_engine
+from datetime import datetime
 
 from brain.config import ENVIRONMENT_VARIABLES
 from schemas.enums import TicketPriority, TicketStatus
@@ -31,7 +32,7 @@ class Ticket(Base):
     user_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("users.id"), nullable=False
     )
-    created_at: Mapped[DateTime] = mapped_column(DateTime, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     text: Mapped[str] = mapped_column(String, nullable=False)
     language_checkpoint: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     department: Mapped[Optional[str]] = mapped_column(String, nullable=True)

@@ -1,3 +1,4 @@
+from types import SimpleNamespace
 from sqlalchemy.orm import Session
 from datetime import datetime
 from utils.get_laya_decision import get_laya_decision
@@ -7,6 +8,11 @@ from schemas.postgredb_schema import Engine
 from utils.server_response import server_response
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
 
+STATIC_TEXT = SimpleNamespace(
+    ticket_created="Ticket created successfully",
+    user_not_found="User not found",
+    ticket_creation_error="Error creating ticket",
+)
 
 async def create_ticket(user_id, title, description):
     with Session(Engine) as s:
@@ -16,7 +22,7 @@ async def create_ticket(user_id, title, description):
             if not user:
                 return server_response(
                     status_code=INTERNAL_SERVER_ERROR,
-                    message="User not found",
+                    message=STATIC_TEXT.user_not_found,
                 )
 
             new_ticket = Ticket(
@@ -37,12 +43,12 @@ async def create_ticket(user_id, title, description):
                     "ticket_id": new_ticket.ticket_id,
                     "laya_decision": laya_decision,
                 },
-                message="Ticket created successfully",
+                message=STATIC_TEXT.ticket_created,
             )
         except Exception as e:
             s.rollback()
             s.close()
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
-                message="Error creating ticket",
+                message=STATIC_TEXT.ticket_creation_error,
             )
