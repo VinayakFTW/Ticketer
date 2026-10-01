@@ -12,12 +12,10 @@ class CreateTicketRequest(BaseModel):
 
 
 class UpdateTicketRequest(BaseModel):
-    ticket_id: str
-    text: Optional[str] = None
-    status: str
-    assigned_email: str
-    bump_count: int
-    last_bump_time: str
+    ticket_id: int
+    status: Optional[str] = None
+    assigned_email: Optional[str] = None
+    last_bump_time: Optional[str] = None
 
 
 class CreateUserRequest(BaseModel):
@@ -25,3 +23,10 @@ class CreateUserRequest(BaseModel):
     email: str
     password: str
     institute: str
+
+
+class UpdateUserRequest(BaseModel):
+    name: Optional[str] = None
+    email: Optional[str] = None
+    password: Optional[str] = None
+    institute: Optional[str] = None

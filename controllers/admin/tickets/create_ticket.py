@@ -3,17 +3,16 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 from fastapi import Depends
 from typing import Annotated
-import json
 
 from schemas.request_schemas import CreateTicketRequest
-from schemas.postgredb_schema import Ticket, User
-from schemas.enums import TicketStatus
-from schemas.postgredb_schema import Engine
+from schemas.postgredb_schema import Ticket, User, Engine
+from constants.enums import TicketStatus
+from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
 from utils.server_response import server_response
 from utils.get_laya_decision import get_laya_decision
-from middleware.dependencies import get_current_user_context
-from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
 from utils.get_llm_response import get_ticket_summary
+from middleware.dependencies import get_current_user_context
+
 
 STATIC_TEXT = SimpleNamespace(
     ticket_created="Ticket created successfully",
@@ -34,7 +33,6 @@ async def create_ticket(
         return server_response(
             status_code=INTERNAL_SERVER_ERROR, message=STATIC_TEXT.ticket_creation_error
         )
-    print("LLM Summary:", llm_summary.get("data").get("assistant_message"))
     with Session(Engine) as s:
         try:
             user = s.query(User).filter(User.id == user.get("user_id")).first()
@@ -48,10 +46,10 @@ async def create_ticket(
                 user_id=user.id,
                 text=ticket_data.text,
                 status=TicketStatus.OPEN,
-                department=laya_decision.get("department"),
-                priority=laya_decision.get("priority"),
+                department=laya_decision.get("decision").get("department"),
+                priority=laya_decision.get("decision").get("priority").upper(),
                 summary=llm_summary.get("data").get("assistant_message"),
-                is_safety_grievance=laya_decision.get("is_safety_grievance"),
+                is_safety_grievance=laya_decision.get("decision").get("is_safety_grievance"),
                 created_at=datetime.now(),
                 last_bump_time=datetime.now(),
             )

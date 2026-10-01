@@ -19,7 +19,6 @@ async def sign_up(user_data: CreateUserRequest):
     with Session(Engine) as s:
         try:
             user_data = user_data.model_dump()
-            print(f"Creating user with data: {user_data}")
             new_user = User(
                 name=user_data.get("name"),
                 email=user_data.get("email"),

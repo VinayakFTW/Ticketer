@@ -1,10 +1,12 @@
 from sqlalchemy.orm import Session
 from types import SimpleNamespace
+from typing import Annotated
+from fastapi import Depends
 
-from schemas.postgredb_schema import Ticket
-from schemas.postgredb_schema import Engine
-from utils.server_response import server_response
+from schemas.postgredb_schema import Ticket, Engine
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR, NOT_FOUND
+from utils.server_response import server_response
+from middleware.dependencies import get_current_user_context
 
 STATIC_TEXT = SimpleNamespace(
     tickets_retrieved="Tickets retrieved successfully",
@@ -12,20 +14,22 @@ STATIC_TEXT = SimpleNamespace(
     ticket_retrieval_error="Error retrieving tickets",
 )
 
-
-async def get_all_tickets():
+async def get_all_tickets_by_user(user: Annotated[dict, Depends(get_current_user_context)]):
     with Session(Engine) as s:
         try:
-            tickets = s.query(Ticket).all()
+            tickets = s.query(Ticket).filter(Ticket.user_id == user.get("user_id")).all()
             if tickets:
                 ticket_list = [
                     {
-                        "ticket_id": ticket.ticket_id,
-                        "title": ticket.title,
-                        "description": ticket.text,
+                        "ticket_id": ticket.id,
+                        "summary": ticket.summary,
+                        "text": ticket.text,
+                        "department": ticket.department,
                         "status": ticket.status,
+                        "priority": ticket.priority,
+                        "bump_count": ticket.bump_count,
                         "created_at": ticket.created_at.isoformat(),
-                        "updated_at": ticket.updated_at.isoformat(),
+                        "last_bump_time": ticket.last_bump_time.isoformat(),
                     }
                     for ticket in tickets
                 ]

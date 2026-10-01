@@ -15,7 +15,7 @@ STATIC_TEXT = SimpleNamespace(
 )
 
 
-def user_login(user_data: LoginRequest):
+def signin(user_data: LoginRequest):
     with Session(Engine) as s:
         try:
             user = s.query(User).filter(User.email == user_data.email).first()
@@ -26,9 +26,6 @@ def user_login(user_data: LoginRequest):
                     status_code=NOT_FOUND,
                     message=STATIC_TEXT.incorrect_info,
                 )
-            print(
-                f"User {user.email} logged in successfully with role {user.role.value}"
-            )
 
             access_token = create_access_token(user_id=user.id, role=user.role.value)
             return server_response(
@@ -41,9 +38,6 @@ def user_login(user_data: LoginRequest):
             )
 
         except Exception as e:
-            import traceback
-
-            traceback.print_exc()
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
                 message=STATIC_TEXT.login_failed,

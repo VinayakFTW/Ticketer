@@ -1,11 +1,10 @@
-from sqlalchemy import Integer, String, ForeignKey, DateTime, Enum, UUID, create_engine
+from sqlalchemy import Integer, String, ForeignKey, DateTime, Enum, create_engine
 from sqlalchemy.orm import relationship, mapped_column, Mapped, DeclarativeBase
 from typing import Optional, List
 from datetime import datetime
-import uuid
 
 from brain.config import ENVIRONMENT_VARIABLES
-from schemas.enums import TicketPriority, TicketStatus, UserRole
+from constants.enums import TicketPriority, TicketStatus, UserRole
 
 Engine = create_engine(ENVIRONMENT_VARIABLES.get("POSTGRES_URL"), echo=True)
 

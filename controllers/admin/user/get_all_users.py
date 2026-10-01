@@ -1,10 +1,12 @@
+from fastapi import Depends
 from sqlalchemy.orm import Session
 from types import SimpleNamespace
+from typing import Annotated
 
-from schemas.postgredb_schema import User
-from schemas.postgredb_schema import Engine
+from schemas.postgredb_schema import User, Engine
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR, NOT_FOUND
 from utils.server_response import server_response
+from middleware.dependencies import require_roles
 
 STATIC_TEXT = SimpleNamespace(
     users_retrieved="Users retrieved successfully",
@@ -12,8 +14,7 @@ STATIC_TEXT = SimpleNamespace(
     user_retrieval_error="Error retrieving users",
 )
 
-
-async def get_all_users():
+async def get_all_users(user: Annotated[dict, Depends(require_roles(["ADMIN"]))]):
     with Session(Engine) as s:
         try:
             users = s.query(User).all()
