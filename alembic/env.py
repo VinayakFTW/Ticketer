@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from schemas.postgredb_schema import User, Ticket, Sessions
+from schemas.postgredb_schema import User, Ticket
 from schemas.postgredb_schema import Base
 from brain.config import ENVIRONMENT_VARIABLES
 

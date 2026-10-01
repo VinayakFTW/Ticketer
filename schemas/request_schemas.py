@@ -25,10 +25,3 @@ class CreateUserRequest(BaseModel):
     email: str
     password: str
     institute: str
-
-
-class CreateSessionRequest(BaseModel):
-    session_id: str
-    created_at: str
-    last_accessed_at: str
-    messages: str  # JSON string

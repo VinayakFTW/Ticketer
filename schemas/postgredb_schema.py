@@ -52,14 +52,3 @@ class Ticket(Base):
     last_bump_time: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
     user: Mapped["User"] = relationship("User", back_populates="tickets")
-
-
-class Sessions(Base):
-    __tablename__ = "sessions"
-
-    id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
-    )
-    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
-    last_accessed_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
-    messages: Mapped[str] = mapped_column(String, nullable=False)  # JSON string

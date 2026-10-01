@@ -9,12 +9,11 @@ from schemas.postgredb_schema import Ticket
 from schemas.postgredb_schema import Engine
 
 STATIC_TEXT = SimpleNamespace(
-    ticket_not_found="Ticket not found for the given session_id.",
+    ticket_not_found="Ticket not found.",
 )
 
 
 async def generate_assistant_response(ticket_id, user_message):
-    session_data = None
     llm = LLMRouter()
     with Session(Engine) as s:
         ticket = s.query(Ticket).filter(Ticket.id == ticket_id).first()
@@ -25,7 +24,7 @@ async def generate_assistant_response(ticket_id, user_message):
                 message=STATIC_TEXT.ticket_not_found,
             )
 
-    llm_response = await llm.generate_response(session_data, user_message)
+    llm_response = await llm.generate_response(user_message)
     return {
         "status_code": SUCCESS,
         "data": {
