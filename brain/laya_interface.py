@@ -1,5 +1,5 @@
 from laya import Router
-from schemas.ticket_schema import TicketDecision
+from brain.config import TicketDecision
 
 
 class LayaRouter:

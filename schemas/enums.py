@@ -9,9 +9,15 @@ class TicketPriority(str, Enum):
 
 
 class TicketStatus(str, Enum):
-    NEW = "NEW"
+    OPEN = "OPEN"
     AUTO_REPLIED = "AUTO_REPLIED"
     IN_PROGRESS = "IN_PROGRESS"
     ESCALATED = "ESCALATED"
     RESOLVED = "RESOLVED"
     CLOSED = "CLOSED"
+
+
+class UserRole(str, Enum):
+    STUDENT = "STUDENT"
+    STAFF = "STAFF"
+    ADMIN = "ADMIN"

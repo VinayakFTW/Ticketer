@@ -12,6 +12,7 @@ STATIC_TEXT = SimpleNamespace(
     user_retrieval_error="Error retrieving users",
 )
 
+
 async def get_all_users():
     with Session(Engine) as s:
         try:
@@ -23,11 +24,22 @@ async def get_all_users():
 
             return server_response(
                 status_code=SUCCESS,
-                data={"users": [{"user_id": u.user_id, "username": u.username} for u in users]},
+                data={
+                    "users": [
+                        {
+                            "user_id": u.id,
+                            "username": u.name,
+                            "email": u.email,
+                            "institute": u.institute,
+                        }
+                        for u in users
+                    ]
+                },
                 message=STATIC_TEXT.users_retrieved,
             )
         except Exception as e:
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
                 message=STATIC_TEXT.user_retrieval_error,
+                data={"error": str(e)},
             )

@@ -6,10 +6,11 @@ from schemas.postgredb_schema import Engine
 from utils.server_response import server_response
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
 
-STATIC_TEXT=SimpleNamespace(
+STATIC_TEXT = SimpleNamespace(
     sessions_retrieved="Sessions retrieved successfully",
     session_retrieval_error="Error retrieving sessions",
 )
+
 
 async def get_all_sessions():
     with Session(Engine) as s:

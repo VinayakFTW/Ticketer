@@ -3,7 +3,9 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 from utils.get_laya_decision import get_laya_decision
 
+from schemas.request_schemas import CreateTicketRequest
 from schemas.postgredb_schema import Ticket, User
+from schemas.enums import TicketStatus
 from schemas.postgredb_schema import Engine
 from utils.server_response import server_response
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
@@ -14,11 +16,12 @@ STATIC_TEXT = SimpleNamespace(
     ticket_creation_error="Error creating ticket",
 )
 
-async def create_ticket(user_id, title, description):
+
+async def create_ticket(ticket_data: CreateTicketRequest):
     with Session(Engine) as s:
         s.begin()
         try:
-            user = s.query(User).filter(User.user_id == user_id).first()
+            user = s.query(User).filter(User.user_id == ticket_data.user_id).first()
             if not user:
                 return server_response(
                     status_code=INTERNAL_SERVER_ERROR,
@@ -26,16 +29,19 @@ async def create_ticket(user_id, title, description):
                 )
 
             new_ticket = Ticket(
-                user_id=user_id,
-                title=title,
-                text=description,
-                status="open",
+                user_id=ticket_data.user_id,
+                title=ticket_data.title,
+                text=ticket_data.description,
+                status=TicketStatus.OPEN,
                 created_at=datetime.now(),
-                updated_at=datetime.now(),
+                last_bump_time=datetime.now(),
             )
             s.add(new_ticket)
             s.commit()
-            laya_decision = await get_laya_decision(title, description)
+            s.refresh(new_ticket)
+            laya_decision = await get_laya_decision(
+                ticket_data.title, ticket_data.description
+            )
 
             return server_response(
                 status_code=SUCCESS,
@@ -47,7 +53,6 @@ async def create_ticket(user_id, title, description):
             )
         except Exception as e:
             s.rollback()
-            s.close()
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
                 message=STATIC_TEXT.ticket_creation_error,
