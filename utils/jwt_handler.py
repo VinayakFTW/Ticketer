@@ -8,18 +8,24 @@ SECRET_KEY = ENVIRONMENT_VARIABLES.get("JWT_SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
-def create_access_token(user_id: int, role: str, expires_delta: Optional[timedelta] = None) -> str:
-    expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
-    
+
+def create_access_token(
+    user_id: int, role: str, expires_delta: Optional[timedelta] = None
+) -> str:
+    expire = datetime.now(timezone.utc) + (
+        expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    )
+
     payload: Dict[str, Any] = {
         "sub": str(user_id),
         "role": str(role),
         "exp": expire,
         "iat": datetime.now(timezone.utc),
     }
-    
+
     encoded_jwt = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
+
 
 def decode_access_token(token: str) -> Optional[Dict[str, Any]]:
     try:

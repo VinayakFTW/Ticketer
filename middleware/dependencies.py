@@ -5,6 +5,7 @@ from utils.jwt_handler import decode_access_token
 
 security = HTTPBearer()
 
+
 def get_current_user_context(
     credentials: Annotated[HTTPAuthorizationCredentials, Depends(security)],
     request: Request,
@@ -26,6 +27,7 @@ def get_current_user_context(
     request.state.role = role
 
     return {"user_id": user_id, "role": role}
+
 
 def require_roles(allowed_roles: List[str]):
     def role_checker(

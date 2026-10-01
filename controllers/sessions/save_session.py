@@ -16,7 +16,6 @@ STATIC_TEXT = SimpleNamespace(
 
 async def save_session(session_id, session_data):
     with Session(Engine) as s:
-        s.begin()
         try:
             session = (
                 s.query(Sessions).filter(Sessions.session_id == session_id).first()
@@ -35,7 +34,6 @@ async def save_session(session_id, session_data):
                 )
         except Exception as e:
             s.rollback()
-            s.close()
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
                 message=STATIC_TEXT.session_save_error,

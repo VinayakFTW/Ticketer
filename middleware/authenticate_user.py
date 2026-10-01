@@ -3,6 +3,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 from utils.jwt_handler import decode_access_token
 
+
 class AuthContextMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         request.state.user_id = None
@@ -19,4 +20,3 @@ class AuthContextMiddleware(BaseHTTPMiddleware):
 
         response = await call_next(request)
         return response
-

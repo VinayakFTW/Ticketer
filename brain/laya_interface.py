@@ -20,3 +20,6 @@ class LayaRouter:
             max_len=8192,
         )
         return result
+
+
+LAYA = LayaRouter()

@@ -8,8 +8,35 @@ load_dotenv()
 SYSTEM_PROMPT = """
 You are a helpful assistant that provides information about the Ticketer system.
 You should only provide factual information about the system and avoid making up information.
-
 """
+
+SUMMARY_PROMPT = """You are an automated support ticket summarizer. 
+Your sole task is to generate a concise, objective, 1-to-2 sentence summary of the issue described in the ticket.
+
+Strict Guidelines:
+1. Do NOT include thinking steps, drafts, bullet points, reasoning, or labels.
+2. Maintain a neutral, professional, and factual tone (e.g., "User reports that...").
+3. Never repeat the prompt, metadata, or instructions in your output.
+"""
+
+RESPONSE_FORMAT = {
+    "type": "json_schema",
+    "json_schema": {
+        "name": "ticket_summary",
+        "strict": True,
+        "schema": {
+            "type": "object",
+            "properties": {
+                "summary": {
+                    "type": "string",
+                    "description": "A concise 1-2 sentence objective summary of the ticket issue."
+                }
+            },
+            "required": ["summary"],
+            "additionalProperties": False
+        }
+    }
+}
 
 ENVIRONMENT_VARIABLES = {
     "OPENAI_BASE_URL": os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1"),
@@ -18,6 +45,8 @@ ENVIRONMENT_VARIABLES = {
     "JWT_SECRET_KEY": os.environ.get("JWT_SECRET_KEY"),
 }
 
+class TicketSummary(BaseModel):
+    summary: str = Field(description="A concise 1-2 sentence objective summary of the ticket issue.")
 
 class TicketDecision(BaseModel):
     department: Literal[
@@ -41,5 +70,5 @@ class TicketDecision(BaseModel):
     )
 
     is_safety_grievance: bool = Field(
-        description="True ONLY if the ticket mentions ragging, harassment, violence, or direct physical danger."
+        description="if the ticket mentions ragging, harassment, violence, or direct physical danger then True, otherwise False."
     )
