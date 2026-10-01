@@ -1,0 +1,58 @@
+info:
+  name: Signin
+  type: http
+  seq: 1
+  tags:
+    - Authentication API
+
+http:
+  method: POST
+  url: "{{baseUrl}}/auth/signin"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "email": "vinayak.varshney.btech2024@sitpune.edu.in",
+        "password": "Vinayak@123"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.body && res.body.data && res.body.data.access_token) {
+            bru.setVar("access_token", res.body.data.access_token);
+        }
+    - type: tests
+      code: |-
+        test("Status code is 200", function() {
+          expect(res.status).to.equal(200);
+        });
+
+        test("Login response contains access_token", function() {
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data.access_token).to.be.a('string');
+          expect(res.body.data.token_type).to.equal('bearer');
+        });
+
+        test("Success message received", function() {
+          expect(res.body.message).to.equal('Login successful');
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: 200
+    - expression: res.body.message
+      operator: eq
+      value: "Login successful"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

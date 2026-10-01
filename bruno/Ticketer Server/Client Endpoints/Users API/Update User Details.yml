@@ -1,0 +1,52 @@
+info:
+  name: Update User Details
+  type: http
+  seq: 2
+  tags:
+    - Users API
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/client/users/update"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Vinayak Varshney",
+        "institute": "Symbiosis Institute of Technology Pune"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Status code is 200", function() {
+          expect(res.status).to.equal(200);
+        });
+
+        test("User details updated successfully", function() {
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data.user).to.be.an('object');
+          expect(res.body.data.user.institute).to.equal("Symbiosis Institute of Technology Pune");
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: 200
+    - expression: res.body.message
+      operator: eq
+      value: "User details retrieved successfully"
+    - expression: res.body.data.user.institute
+      operator: eq
+      value: "Symbiosis Institute of Technology Pune"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

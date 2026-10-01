@@ -1,0 +1,57 @@
+info:
+  name: Create Ticket
+  type: http
+  seq: 2
+  tags:
+    - Tickets API
+
+http:
+  method: POST
+  url: "{{baseUrl}}/admin/tickets/create"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "text": "Core datacenter HVAC unit 3 has compressor malfunction and overheating alarm triggered."
+      }
+  auth:
+    type: bearer
+    token: "{{admin_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.body && res.body.data && res.body.data.ticket_id) {
+            bru.setVar("admin_created_ticket_id", res.body.data.ticket_id);
+        }
+    - type: tests
+      code: |-
+        test("Status code is 200", function() {
+          expect(res.status).to.equal(200);
+        });
+
+        test("Admin ticket created successfully", function() {
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data.ticket_id).to.be.a('number');
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: 200
+    - expression: res.body.message
+      operator: eq
+      value: "Ticket created successfully"
+    - expression: res.body.data.ticket_id
+      operator: isDefined
+      value: true
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

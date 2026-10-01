@@ -1,0 +1,45 @@
+info:
+  name: Get User Details
+  type: http
+  seq: 1
+  tags:
+    - Users API
+
+http:
+  method: GET
+  url: "{{baseUrl}}/client/users/details"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Status code is 200", function() {
+          expect(res.status).to.equal(200);
+        });
+
+        test("User details payload schema is valid", function() {
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data.user).to.be.an('object');
+          expect(res.body.data.user.user_id).to.be.a('number');
+          expect(res.body.data.user.username).to.be.a('string');
+          expect(res.body.data.user.email).to.equal("vinayak.varshney.btech2024@sitpune.edu.in");
+          expect(res.body.data.user.institute).to.be.a('string');
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: 200
+    - expression: res.body.message
+      operator: eq
+      value: "User details retrieved successfully"
+    - expression: res.body.data.user.email
+      operator: eq
+      value: "vinayak.varshney.btech2024@sitpune.edu.in"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

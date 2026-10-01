@@ -1,0 +1,48 @@
+info:
+  name: Get All Tickets
+  type: http
+  seq: 1
+  tags:
+    - Tickets API
+
+http:
+  method: GET
+  url: "{{baseUrl}}/admin/tickets/all"
+  auth:
+    type: bearer
+    token: "{{admin_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Status code is 200", function() {
+          expect(res.status).to.equal(200);
+        });
+
+        test("Tickets array returned", function() {
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data.tickets).to.be.an('array');
+          expect(res.body.data.tickets.length).to.be.at.least(1);
+        });
+
+        test("Ticket contains admin-visible fields", function() {
+          const ticket = res.body.data.tickets[0];
+          expect(ticket).to.have.property("ticket_id");
+          expect(ticket).to.have.property("department");
+          expect(ticket).to.have.property("status");
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: 200
+    - expression: res.body.data.tickets
+      operator: isDefined
+      value: true
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
