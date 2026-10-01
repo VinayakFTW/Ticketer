@@ -1,7 +1,9 @@
 import os
+from dotenv import load_dotenv
 from typing import Literal
 from pydantic import BaseModel, Field
 
+load_dotenv()
 
 SYSTEM_PROMPT = """
 You are a helpful assistant that provides information about the Ticketer system.
@@ -11,15 +13,13 @@ You should only provide factual information about the system and avoid making up
 
 ENVIRONMENT_VARIABLES = {
     "OPENAI_BASE_URL": os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1"),
-    "OPENAI_API_KEY": os.environ.get("OPENAI_API_KEY", ""),
-    "POSTGRES_URL": os.environ.get("POSTGRES_URL", ""),
+    "OPENAI_API_KEY": os.environ.get("OPENAI_API_KEY"),
+    "POSTGRES_URL": os.environ.get("POSTGRES_URL"),
+    "JWT_SECRET_KEY": os.environ.get("JWT_SECRET_KEY"),
 }
 
 
 class TicketDecision(BaseModel):
-    summary_reason: str = Field(
-        description="One short sentence summarizing the student's core issue."
-    )
     department: Literal[
         "it_support",
         "facilities",

@@ -12,9 +12,11 @@ STATIC_TEXT = SimpleNamespace(
 )
 
 
-async def get_llm_response(session_id, user_message):
+async def get_llm_response(session_id,ticket_id, user_message):
+    llm_router = LLMRouter(session_id=session_id)
+    session_data=None
     with Session(Engine) as s:
-        ticket = s.query(Ticket).filter(Ticket.ticket_id == session_id).first()
+        ticket = s.query(Ticket).filter(Ticket.id == ticket_id).first()
 
         if not ticket:
             return server_response(
@@ -28,14 +30,10 @@ async def get_llm_response(session_id, user_message):
                 {"role": "user", "content": user_message},
             ]
         }
-
-        llm_router = LLMRouter(session_id=session_id)
-        llm_response = await llm_router.generate_response(session_data, user_message)
-
-        return server_response(
-            status_code=SUCCESS,
-            data={
-                "assistant_message": llm_response.get("data").get("assistant_message"),
-                "session_id": session_id,
-            },
-        )
+    llm_response = await llm_router.generate_response(session_data, user_message)
+    return server_response(
+        status_code=SUCCESS,
+        data={
+            "assistant_message": llm_response.get("data").get("assistant_message"),
+            "session_id": session_id,
+        })

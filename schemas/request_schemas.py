@@ -1,15 +1,17 @@
 from pydantic import BaseModel
+from typing import Optional
 
+class LoginRequest(BaseModel):
+    email: str
+    password: str
 
 class CreateTicketRequest(BaseModel):
-    ticket_id: str
-    user_id: str
     text: str
-    created_at: str
 
 
 class UpdateTicketRequest(BaseModel):
     ticket_id: str
+    text: Optional[str] = None
     status: str
     assigned_email: str
     bump_count: int
@@ -19,6 +21,7 @@ class UpdateTicketRequest(BaseModel):
 class CreateUserRequest(BaseModel):
     name: str
     email: str
+    password: str
     institute: str
 
 

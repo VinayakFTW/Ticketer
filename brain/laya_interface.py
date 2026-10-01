@@ -5,8 +5,6 @@ from brain.config import TicketDecision
 class LayaRouter:
     def __init__(self):
         self.router = Router(
-            prefix="/api/v1/laya",
-            tags=["Laya"],
             preload=True,
             device="cuda",
         )

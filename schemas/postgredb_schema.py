@@ -20,6 +20,7 @@ class User(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    password: Mapped[str] = mapped_column(String, nullable=False)
     institute: Mapped[Optional[str]] = mapped_column(String, nullable=False)
     role: Mapped[Optional[UserRole]] = mapped_column(
         Enum(UserRole), default=UserRole.STUDENT, nullable=False
@@ -31,14 +32,13 @@ class User(Base):
 class Ticket(Base):
     __tablename__ = "tickets"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    ticket_id: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True,autoincrement=True)
     user_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("users.id"), nullable=False
     )
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     text: Mapped[str] = mapped_column(String, nullable=False)
-    language_checkpoint: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    summary: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     department: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     priority: Mapped[Optional[TicketPriority]] = mapped_column(
         Enum(TicketPriority), nullable=True
@@ -60,7 +60,6 @@ class Sessions(Base):
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
-    session_id: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     last_accessed_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     messages: Mapped[str] = mapped_column(String, nullable=False)  # JSON string

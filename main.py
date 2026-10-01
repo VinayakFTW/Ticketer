@@ -5,8 +5,10 @@ from routes.user_routes import USER_ROUTER
 from routes.session_routes import SESSION_ROUTER
 from routes.ticket_routes import TICKET_ROUTER
 from routes.ai_routes import AI_ROUTER
+from middleware.authenticate_user import AuthContextMiddleware
 
 server = FastAPI(title="Ticketer Server", version="0.1.0")
+server.add_middleware(AuthContextMiddleware)
 
 server.add_middleware(
     CORSMiddleware,

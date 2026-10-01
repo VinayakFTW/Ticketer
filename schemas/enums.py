@@ -9,12 +9,12 @@ class TicketPriority(str, Enum):
 
 
 class TicketStatus(str, Enum):
-    OPEN = "OPEN"
-    AUTO_REPLIED = "AUTO_REPLIED"
-    IN_PROGRESS = "IN_PROGRESS"
-    ESCALATED = "ESCALATED"
-    RESOLVED = "RESOLVED"
-    CLOSED = "CLOSED"
+    OPEN = "open"
+    AUTO_REPLIED = "auto_replied"
+    IN_PROGRESS = "in_progress"
+    ESCALATED = "escalated"
+    RESOLVED = "resolved"
+    CLOSED = "closed"
 
 
 class UserRole(str, Enum):

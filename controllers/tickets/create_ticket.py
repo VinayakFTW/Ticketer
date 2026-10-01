@@ -1,14 +1,18 @@
 from types import SimpleNamespace
 from sqlalchemy.orm import Session
 from datetime import datetime
-from utils.get_laya_decision import get_laya_decision
+from fastapi import Depends
+from typing import Annotated
 
 from schemas.request_schemas import CreateTicketRequest
 from schemas.postgredb_schema import Ticket, User
 from schemas.enums import TicketStatus
 from schemas.postgredb_schema import Engine
 from utils.server_response import server_response
+from utils.get_laya_decision import get_laya_decision
+from middleware.dependencies import get_current_user_context
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
+# from utils.get_llm_response import get_llm_response
 
 STATIC_TEXT = SimpleNamespace(
     ticket_created="Ticket created successfully",
@@ -17,43 +21,45 @@ STATIC_TEXT = SimpleNamespace(
 )
 
 
-async def create_ticket(ticket_data: CreateTicketRequest):
+async def create_ticket(user: Annotated[dict, Depends(get_current_user_context)], ticket_data: CreateTicketRequest):
+    laya_decision = await get_laya_decision(ticket_data.text)
     with Session(Engine) as s:
-        s.begin()
         try:
-            user = s.query(User).filter(User.user_id == ticket_data.user_id).first()
+            user = s.query(User).filter(User.id == user.get("user_id")).first()
             if not user:
                 return server_response(
                     status_code=INTERNAL_SERVER_ERROR,
                     message=STATIC_TEXT.user_not_found,
                 )
-
+            
             new_ticket = Ticket(
-                user_id=ticket_data.user_id,
-                title=ticket_data.title,
-                text=ticket_data.description,
+                user_id=user.id,
+                text=ticket_data.text,
                 status=TicketStatus.OPEN,
+                department=laya_decision.get("department"),
+                priority=laya_decision.get("priority"),
+                is_safety_grievance=laya_decision.get("is_safety_grievance"),
                 created_at=datetime.now(),
                 last_bump_time=datetime.now(),
             )
             s.add(new_ticket)
             s.commit()
             s.refresh(new_ticket)
-            laya_decision = await get_laya_decision(
-                ticket_data.title, ticket_data.description
-            )
 
             return server_response(
                 status_code=SUCCESS,
                 data={
-                    "ticket_id": new_ticket.ticket_id,
+                    "ticket_id": new_ticket.id,
                     "laya_decision": laya_decision,
                 },
                 message=STATIC_TEXT.ticket_created,
             )
         except Exception as e:
             s.rollback()
+            from utils.logger import debug_logger
+            debug_logger()
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
                 message=STATIC_TEXT.ticket_creation_error,
+                data={"error": str(e)}
             )
