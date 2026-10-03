@@ -48,7 +48,9 @@ async def create_ticket(
                 department=laya_decision.get("decision").get("department"),
                 priority=laya_decision.get("decision").get("priority").upper(),
                 summary=llm_summary.get("data").get("assistant_message"),
-                is_safety_grievance=laya_decision.get("decision").get("is_safety_grievance"),
+                is_safety_grievance=laya_decision.get("decision").get(
+                    "is_safety_grievance"
+                ),
                 created_at=datetime.now(),
                 last_bump_time=datetime.now(),
             )

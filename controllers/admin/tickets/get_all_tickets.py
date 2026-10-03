@@ -14,6 +14,7 @@ STATIC_TEXT = SimpleNamespace(
     ticket_retrieval_error="Error retrieving tickets",
 )
 
+
 async def get_all_tickets(user: Annotated[dict, Depends(require_roles(["ADMIN"]))]):
     with Session(Engine) as s:
         try:

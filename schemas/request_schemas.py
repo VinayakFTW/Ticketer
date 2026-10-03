@@ -11,6 +11,11 @@ class CreateTicketRequest(BaseModel):
     text: str
 
 
+class CreateTicketRequestAdmin(BaseModel):
+    email: str
+    text: str
+
+
 class UpdateTicketRequest(BaseModel):
     ticket_id: int
     status: Optional[str] = None

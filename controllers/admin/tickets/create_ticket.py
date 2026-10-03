@@ -4,14 +4,14 @@ from datetime import datetime
 from fastapi import Depends
 from typing import Annotated
 
-from schemas.request_schemas import CreateTicketRequest
+from schemas.request_schemas import CreateTicketRequestAdmin
 from schemas.postgredb_schema import Ticket, User, Engine
 from constants.enums import TicketStatus
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
 from utils.server_response import server_response
 from utils.get_laya_decision import get_laya_decision
 from utils.get_llm_response import get_ticket_summary
-from middleware.dependencies import get_current_user_context
+from middleware.dependencies import require_roles
 
 
 STATIC_TEXT = SimpleNamespace(
@@ -22,8 +22,8 @@ STATIC_TEXT = SimpleNamespace(
 
 
 async def create_ticket(
-    user: Annotated[dict, Depends(get_current_user_context)],
-    ticket_data: CreateTicketRequest,
+    user: Annotated[dict, Depends(require_roles(["ADMIN"]))],
+    ticket_data: CreateTicketRequestAdmin,
 ):
     laya_decision = await get_laya_decision(ticket_data.text)
     llm_summary = await get_ticket_summary(
@@ -35,7 +35,7 @@ async def create_ticket(
         )
     with Session(Engine) as s:
         try:
-            user = s.query(User).filter(User.id == user.get("user_id")).first()
+            user = s.query(User).filter(User.email == ticket_data.get("email")).first()
             if not user:
                 return server_response(
                     status_code=INTERNAL_SERVER_ERROR,
@@ -49,7 +49,9 @@ async def create_ticket(
                 department=laya_decision.get("decision").get("department"),
                 priority=laya_decision.get("decision").get("priority").upper(),
                 summary=llm_summary.get("data").get("assistant_message"),
-                is_safety_grievance=laya_decision.get("decision").get("is_safety_grievance"),
+                is_safety_grievance=laya_decision.get("decision").get(
+                    "is_safety_grievance"
+                ),
                 created_at=datetime.now(),
                 last_bump_time=datetime.now(),
             )

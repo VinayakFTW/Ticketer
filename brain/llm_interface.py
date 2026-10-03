@@ -3,7 +3,7 @@ import json
 from openai import AsyncOpenAI
 
 from brain.config import ENVIRONMENT_VARIABLES, RESPONSE_FORMAT
-from brain.config import SUMMARY_PROMPT, SYSTEM_PROMPT,TicketSummary
+from brain.config import SUMMARY_PROMPT, SYSTEM_PROMPT, TicketSummary
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
 
 
@@ -47,12 +47,17 @@ class LLMRouter:
 
             try:
                 data = json.loads(raw_content)
-                summary_text = data.get("summary", raw_content) if isinstance(data, dict) else raw_content
+                summary_text = (
+                    data.get("summary", raw_content)
+                    if isinstance(data, dict)
+                    else raw_content
+                )
             except json.JSONDecodeError:
                 summary_text = raw_content
 
             return {"status_code": SUCCESS, "assistant_message": summary_text}
         except Exception as e:
             from utils.logger import debug_logger
+
             debug_logger()
             return {"status_code": INTERNAL_SERVER_ERROR, "assistant_message": None}

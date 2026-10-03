@@ -29,13 +29,13 @@ RESPONSE_FORMAT = {
             "properties": {
                 "summary": {
                     "type": "string",
-                    "description": "A concise 1-2 sentence objective summary of the ticket issue."
+                    "description": "A concise 1-2 sentence objective summary of the ticket issue.",
                 }
             },
             "required": ["summary"],
-            "additionalProperties": False
-        }
-    }
+            "additionalProperties": False,
+        },
+    },
 }
 
 ENVIRONMENT_VARIABLES = {
@@ -45,8 +45,12 @@ ENVIRONMENT_VARIABLES = {
     "JWT_SECRET_KEY": os.environ.get("JWT_SECRET_KEY"),
 }
 
+
 class TicketSummary(BaseModel):
-    summary: str = Field(description="A concise 1-2 sentence objective summary of the ticket issue.")
+    summary: str = Field(
+        description="A concise 1-2 sentence objective summary of the ticket issue."
+    )
+
 
 class TicketDecision(BaseModel):
     department: Literal[

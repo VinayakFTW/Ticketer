@@ -16,10 +16,16 @@ STATIC_TEXT = SimpleNamespace(
     ticket_update_error="Error updating ticket",
 )
 
-async def update_ticket(user: Annotated[dict, Depends(require_roles(["STAFF"]))], update_request: UpdateTicketRequest):
+
+async def update_ticket(
+    user: Annotated[dict, Depends(require_roles(["STAFF", "ADMIN"]))],
+    update_request: UpdateTicketRequest,
+):
     with Session(Engine) as s:
         try:
-            ticket_record = s.query(Ticket).filter(Ticket.id == update_request.ticket_id).first()
+            ticket_record = (
+                s.query(Ticket).filter(Ticket.id == update_request.ticket_id).first()
+            )
             if not ticket_record:
                 return server_response(
                     status_code=NOT_FOUND, message=STATIC_TEXT.ticket_not_found
@@ -47,5 +53,5 @@ async def update_ticket(user: Annotated[dict, Depends(require_roles(["STAFF"]))]
         except Exception as e:
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
-                message=STATIC_TEXT.ticket_update_error
+                message=STATIC_TEXT.ticket_update_error,
             )

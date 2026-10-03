@@ -14,6 +14,7 @@ STATIC_TEXT = SimpleNamespace(
     user_retrieval_error="Error retrieving user details",
 )
 
+
 async def get_user_details(user: Annotated[dict, Depends(get_current_user_context)]):
     with Session(Engine) as s:
         try:

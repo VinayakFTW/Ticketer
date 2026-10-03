@@ -14,10 +14,15 @@ STATIC_TEXT = SimpleNamespace(
     ticket_retrieval_error="Error retrieving tickets",
 )
 
-async def get_all_tickets_by_user(user: Annotated[dict, Depends(get_current_user_context)]):
+
+async def get_all_tickets_by_user(
+    user: Annotated[dict, Depends(get_current_user_context)],
+):
     with Session(Engine) as s:
         try:
-            tickets = s.query(Ticket).filter(Ticket.user_id == user.get("user_id")).all()
+            tickets = (
+                s.query(Ticket).filter(Ticket.user_id == user.get("user_id")).all()
+            )
             if tickets:
                 ticket_list = [
                     {

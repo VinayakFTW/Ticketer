@@ -14,6 +14,7 @@ STATIC_TEXT = SimpleNamespace(
     user_retrieval_error="Error retrieving users",
 )
 
+
 async def get_all_users(user: Annotated[dict, Depends(require_roles(["ADMIN"]))]):
     with Session(Engine) as s:
         try:

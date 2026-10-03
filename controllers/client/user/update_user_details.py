@@ -17,7 +17,11 @@ STATIC_TEXT = SimpleNamespace(
     user_update_error="Error updating user details",
 )
 
-async def update_user_details(user: Annotated[dict, Depends(get_current_user_context)], user_data: UpdateUserRequest):
+
+async def update_user_details(
+    user: Annotated[dict, Depends(get_current_user_context)],
+    user_data: UpdateUserRequest,
+):
     with Session(Engine) as s:
         try:
             user_id = user.get("user_id")
@@ -50,5 +54,5 @@ async def update_user_details(user: Annotated[dict, Depends(get_current_user_con
         except Exception as e:
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
-                message=STATIC_TEXT.user_retrieval_error
+                message=STATIC_TEXT.user_retrieval_error,
             )
