@@ -1,0 +1,56 @@
+info:
+  name: Signup
+  type: http
+  seq: 4
+  tags:
+    - Authentication API
+
+http:
+  method: POST
+  url: "{{baseUrl}}/auth/signup"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Vinayak Varshney",
+        "email": "{{signup_email}}",
+        "password": "Vinayak@123",
+        "institute": "Symbiosis Institute of Technology"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: bru.setVar("signup_email", "student_" + Date.now() + "@sitpune.edu.in");
+    - type: tests
+      code: |-
+        test("Status code is 200", function() {
+          expect(res.status).to.equal(200);
+        });
+
+        test("User creation response contains user ID", function() {
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data.user).to.be.a('number');
+        });
+
+        test("User created message received", function() {
+          expect(res.body.message).to.equal('User created successfully');
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.message
+      operator: eq
+      value: User created successfully
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

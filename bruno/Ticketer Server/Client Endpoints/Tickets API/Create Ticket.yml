@@ -1,0 +1,60 @@
+info:
+  name: Create Ticket
+  type: http
+  seq: 1
+  tags:
+    - Tickets API
+
+http:
+  method: POST
+  url: "{{baseUrl}}/client/tickets/create"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "text": "The air conditioning unit in Lab 404 is leaking water heavily onto the floor and computer desks."
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.body && res.body.data && res.body.data.ticket_id) {
+            bru.setVar("ticket_id", res.body.data.ticket_id);
+        }
+    - type: tests
+      code: |-
+        test("Status code is 200", function() {
+          expect(res.status).to.equal(200);
+        });
+
+        test("Ticket created with valid ID", function() {
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data.ticket_id).to.be.a('number');
+        });
+
+        test("Decision and summary generated", function() {
+          expect(res.body.data.summary).to.be.a('string');
+          expect(res.body.data.laya_decision).to.be.an('object');
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: 200
+    - expression: res.body.message
+      operator: eq
+      value: "Ticket created successfully"
+    - expression: res.body.data.ticket_id
+      operator: isDefined
+      value: true
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

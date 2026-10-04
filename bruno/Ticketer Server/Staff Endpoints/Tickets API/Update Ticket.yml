@@ -1,0 +1,57 @@
+info:
+  name: Update Ticket
+  type: http
+  seq: 1
+  tags:
+    - Tickets API
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/staff/tickets/update/{{ticket_id}}"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "ticket_id": 15,
+        "status": "in_progress",
+        "assigned_email": "staff.tech@sitpune.edu.in"
+      }
+  auth:
+    type: bearer
+    token: "{{staff_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Status code is 200", function() {
+          expect(res.status).to.equal(200);
+        });
+
+        test("Ticket updated with staff assignment and status", function() {
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data.ticket).to.be.an('object');
+          expect(res.body.data.ticket.ticket_id).to.equal(15);
+          expect(res.body.data.ticket.status).to.equal("in_progress");
+          expect(res.body.data.ticket.bump_count).to.be.at.least(1);
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: 200
+    - expression: res.body.message
+      operator: eq
+      value: "Ticket updated successfully"
+    - expression: res.body.data.ticket.status
+      operator: eq
+      value: "in_progress"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

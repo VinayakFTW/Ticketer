@@ -1,0 +1,52 @@
+info:
+  name: Get All Users
+  type: http
+  seq: 1
+  tags:
+    - Users API
+
+http:
+  method: GET
+  url: "{{baseUrl}}/users/all"
+  auth:
+    type: bearer
+    token: "{{admin_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Status code is 200", function() {
+          expect(res.status).to.equal(200);
+        });
+
+        test("Users array is populated", function() {
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data.users).to.be.an('array');
+          expect(res.body.data.users.length).to.be.at.least(1);
+        });
+
+        test("User object contains expected fields", function() {
+          const user = res.body.data.users[0];
+          expect(user).to.have.property("user_id");
+          expect(user).to.have.property("username");
+          expect(user).to.have.property("email");
+          expect(user).to.have.property("institute");
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: 200
+    - expression: res.body.message
+      operator: eq
+      value: "Users retrieved successfully"
+    - expression: res.body.data.users
+      operator: isDefined
+      value: true
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

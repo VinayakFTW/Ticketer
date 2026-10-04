@@ -5,6 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "alembic>=1.20.0",
+    "bcrypt>=5.0.0",
     "fastapi>=0.141.1",
     "fastmcp>=4.0.10",
     "httpx>=0.28.1",
@@ -13,6 +15,27 @@ dependencies = [
     "langgraph>=1.2.12",
     "laya>=0.3.20",
     "openai>=3.19.2",
+    "psycopg[binary]>=3.3.6",
+    "pyjwt>=2.15.0",
     "sqlalchemy[asyncio]>=2.1.1",
     "uvicorn>=0.54.0",
+    "torch>=2.7.0",
+    "torchvision>=0.22.0",
+    "redis>=8.1.0",
 ]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cu130"},
+]
+torchvision = [
+    { index = "pytorch-cu130"},
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[dependency-groups]
+dev = []

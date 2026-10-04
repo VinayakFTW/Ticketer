@@ -1,0 +1,34 @@
+opencollection: 1.0.0
+
+info:
+  name: Ticketer Server
+  version: "1"
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  auth:
+    type: bearer
+    token: "{{access_token}}"
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git
+    openapi:
+      - sourceUrl: D:/Work/CodeVaults/Ticketer/openapi.json
+        groupBy: tags
+        lastSyncDate: 2026-09-30T07:28:46.114Z
+        specHash: ce9813f094935848bc77045f1eaade2a
+        autoCheck: true
+        autoCheckInterval: 5

@@ -1,11 +1,11 @@
-import json
+from fastapi.responses import JSONResponse
 
 
-def server_response(message, status_code, data=None):
-    return json.dumps(
-        dict(
-            data=data,
-            status_code=status_code,
-            message=message,
-        )
+def server_response(status_code, message=None, data=None):
+    return JSONResponse(
+        status_code=status_code,
+        content={
+            "data": data,
+            "message": message,
+        },
     )

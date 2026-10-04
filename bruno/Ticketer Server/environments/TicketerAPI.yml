@@ -1,0 +1,17 @@
+name: TicketerAPI
+variables:
+  - name: baseUrl
+    value: http://127.0.0.1:8000/api/v1
+    description: API Base URL
+  - name: access_token
+    value: ""
+    description: Dynamic student access token populated by Signin
+  - name: admin_token
+    value: ""
+    description: Dynamic admin access token populated by Admin Signin
+  - name: staff_token
+    value: ""
+    description: Dynamic staff access token populated by Staff Signin
+  - name: ticket_id
+    value: "15"
+    description: Existing ticket ID for updates and queries
