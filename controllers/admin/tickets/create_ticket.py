@@ -35,7 +35,7 @@ async def create_ticket(
         )
     with Session(Engine) as s:
         try:
-            user = s.query(User).filter(User.email == ticket_data.get("email")).first()
+            user = s.query(User).filter(User.email == ticket_data.email).first()
             if not user:
                 return server_response(
                     status_code=INTERNAL_SERVER_ERROR,
@@ -73,5 +73,4 @@ async def create_ticket(
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
                 message=STATIC_TEXT.ticket_creation_error,
-                data={"error": str(e)},
             )

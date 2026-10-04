@@ -17,14 +17,15 @@ STATIC_TEXT = SimpleNamespace(
 )
 
 
-async def update_ticket(
+
+async def update_ticket(ticket_id: int,
     user: Annotated[dict, Depends(require_roles(["STAFF", "ADMIN"]))],
     update_request: UpdateTicketRequest,
 ):
     with Session(Engine) as s:
         try:
             ticket_record = (
-                s.query(Ticket).filter(Ticket.id == update_request.ticket_id).first()
+                s.query(Ticket).filter(Ticket.id == ticket_id).first()
             )
             if not ticket_record:
                 return server_response(
@@ -33,7 +34,7 @@ async def update_ticket(
             if update_request.assigned_email is not None:
                 ticket_record.assigned_email = update_request.assigned_email
             if update_request.status is not None:
-                ticket_record.status = update_request.status
+                ticket_record.status = update_request.status.upper() if update_request.status in ["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"] else ticket_record.status
             ticket_record.last_bump_time = datetime.now()
             ticket_record.bump_count += 1
             s.commit()

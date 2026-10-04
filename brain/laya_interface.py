@@ -1,4 +1,6 @@
 from laya import Router
+import asyncio
+
 from brain.config import TicketDecision
 
 
@@ -12,8 +14,9 @@ class LayaRouter:
     def get_router(self):
         return self.router
 
-    def get_decision(self, request):
-        result: TicketDecision = self.router.decide(
+    async def get_decision(self, request):
+        result: TicketDecision = await asyncio.to_thread(
+            self.router.decide,
             state=request,
             schema=TicketDecision,
             model="multilingual",

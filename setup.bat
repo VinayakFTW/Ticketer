@@ -51,7 +51,7 @@ echo [OK] Dependencies installed.
 
 echo [INFO] Setting up database tables...
 
-python db_setup.py
+uv run alembic upgrade head
 if %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Database setup failed.
     exit /b 1

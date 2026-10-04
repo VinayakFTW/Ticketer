@@ -4,8 +4,8 @@ from enum import Enum
 class TicketPriority(str, Enum):
     LOW = "LOW"
     MEDIUM = "MEDIUM"
-    HIGH = "HIGH"
     URGENT = "URGENT"
+    CRITICAL = "CRITICAL"
 
 
 class TicketStatus(str, Enum):

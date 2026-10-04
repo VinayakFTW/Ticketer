@@ -16,7 +16,5 @@ fi
 
 uv python install 3.14 --default
 uv sync
-
-python db_setup.py
-
+uv run alembic upgrade head
 echo "Setup completed successfully."

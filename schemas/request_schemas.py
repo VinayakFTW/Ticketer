@@ -17,7 +17,6 @@ class CreateTicketRequestAdmin(BaseModel):
 
 
 class UpdateTicketRequest(BaseModel):
-    ticket_id: int
     status: Optional[str] = None
     assigned_email: Optional[str] = None
     last_bump_time: Optional[str] = None
@@ -38,4 +37,7 @@ class UpdateUserRequest(BaseModel):
     role: Optional[str] = None
 
 class RefreshTokenRequest(BaseModel):
+    refresh_token: str
+
+class SignOutRequest(BaseModel):
     refresh_token: str

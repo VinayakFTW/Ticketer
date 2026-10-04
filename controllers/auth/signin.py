@@ -42,6 +42,5 @@ def signin(user_data: LoginRequest):
         except Exception as e:
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
-                message=STATIC_TEXT.login_failed,
-                data={"error": str(e)},
+                message=STATIC_TEXT.login_failed
             )

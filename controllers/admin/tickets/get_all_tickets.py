@@ -30,7 +30,7 @@ async def get_all_tickets(user: Annotated[dict, Depends(require_roles(["ADMIN"])
                         "priority": ticket.priority,
                         "bump_count": ticket.bump_count,
                         "created_at": ticket.created_at.isoformat(),
-                        "last_bump_time": ticket.last_bump_time.isoformat(),
+                        "last_bump_time": ticket.last_bump_time.isoformat() if ticket.last_bump_time else None,
                     }
                     for ticket in tickets
                 ]

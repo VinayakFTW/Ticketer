@@ -71,6 +71,5 @@ async def create_ticket(
             s.rollback()
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
-                message=STATIC_TEXT.ticket_creation_error,
-                data={"error": str(e)},
+                message=STATIC_TEXT.ticket_creation_error
             )

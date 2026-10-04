@@ -32,14 +32,14 @@ Ticketer works towards providing a faster resolution to these tickets/issues rai
 
 In your terminal paste the following and press enter to install the server dependencies.
 
-1. `git clone "https://github.com/VinayakFTW/Ticketer.git" | cd Ticketer`
+1. `git clone "https://github.com/VinayakFTW/Ticketer.git" && cd Ticketer`
 
 2. For macOs/Linux:
 `./setup.sh`
 
     For Windows:
-    cmd<br>`script.bat`
+    cmd<br>`setup.bat`
 
-    powershell<br>`cmd.exe /c .\script.bat`
+    powershell<br>`cmd.exe /c .\setup.bat`
 
 And that is all for the setup

@@ -39,7 +39,7 @@ async def update_user_details(
                 user_record.password = hash_password(user_data.password)
             if user_data.institute:
                 user_record.institute = user_data.institute
-            if (user_record.role == UserRole.ADMIN or UserRole.STAFF) and user_data.role:
+            if user_record.role == UserRole.ADMIN.value and user_data.role:
                 user_record.role = user_data.role
                 
             s.commit()
