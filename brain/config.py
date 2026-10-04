@@ -43,6 +43,7 @@ ENVIRONMENT_VARIABLES = {
     "OPENAI_API_KEY": os.environ.get("OPENAI_API_KEY"),
     "POSTGRES_URL": os.environ.get("POSTGRES_URL"),
     "JWT_SECRET_KEY": os.environ.get("JWT_SECRET_KEY"),
+    "MODE": os.environ.get("MODE"),
 }
 
 

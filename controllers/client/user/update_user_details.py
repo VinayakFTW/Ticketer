@@ -6,6 +6,7 @@ from fastapi import Depends
 from schemas.postgredb_schema import User, Engine
 from schemas.request_schemas import UpdateUserRequest
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR, NOT_FOUND
+from constants.enums import UserRole
 from utils.server_response import server_response
 from utils.pass_hash import hash_password
 from middleware.dependencies import get_current_user_context
@@ -38,6 +39,9 @@ async def update_user_details(
                 user_record.password = hash_password(user_data.password)
             if user_data.institute:
                 user_record.institute = user_data.institute
+            if (user_record.role == UserRole.ADMIN or UserRole.STAFF) and user_data.role:
+                user_record.role = user_data.role
+                
             s.commit()
             return server_response(
                 status_code=SUCCESS,

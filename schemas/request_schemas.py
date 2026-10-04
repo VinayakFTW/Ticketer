@@ -28,10 +28,11 @@ class CreateUserRequest(BaseModel):
     email: str
     password: str
     institute: str
-
+    role: Optional[str] = None
 
 class UpdateUserRequest(BaseModel):
     name: Optional[str] = None
     email: Optional[str] = None
     password: Optional[str] = None
     institute: Optional[str] = None
+    role: Optional[str] = None
