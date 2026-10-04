@@ -15,8 +15,7 @@ class AuthContextMiddleware(BaseHTTPMiddleware):
             payload = decode_access_token(token)
 
             if payload:
-                request.state.user_id = payload.get("sub")
+                request.state.user_id = payload.get("user_id")
                 request.state.role = payload.get("role")
-
         response = await call_next(request)
         return response

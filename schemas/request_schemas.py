@@ -36,3 +36,6 @@ class UpdateUserRequest(BaseModel):
     password: Optional[str] = None
     institute: Optional[str] = None
     role: Optional[str] = None
+
+class RefreshTokenRequest(BaseModel):
+    refresh_token: str

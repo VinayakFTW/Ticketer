@@ -44,6 +44,9 @@ ENVIRONMENT_VARIABLES = {
     "POSTGRES_URL": os.environ.get("POSTGRES_URL"),
     "JWT_SECRET_KEY": os.environ.get("JWT_SECRET_KEY"),
     "MODE": os.environ.get("MODE"),
+    "REDIS_HOST": os.environ.get("REDIS_HOST"),
+    "REDIS_PORT": os.environ.get("REDIS_PORT"),
+    "REDIS_PASSWORD": os.environ.get("REDIS_PASSWORD"),
 }
 
 
