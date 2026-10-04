@@ -15,9 +15,9 @@ http:
     type: json
     data: |-
       {
-        "name": "Aarav Mehta",
+        "name": "Vinayak Varshney",
         "email": "{{signup_email}}",
-        "password": "AaravSecure@123",
+        "password": "Vinayak@123",
         "institute": "Symbiosis Institute of Technology"
       }
   auth: inherit
@@ -25,8 +25,7 @@ http:
 runtime:
   scripts:
     - type: before-request
-      code: |-
-        bru.setVar("signup_email", "student_" + Date.now() + "@sitpune.edu.in");
+      code: bru.setVar("signup_email", "student_" + Date.now() + "@sitpune.edu.in");
     - type: tests
       code: |-
         test("Status code is 200", function() {
@@ -44,10 +43,10 @@ runtime:
   assertions:
     - expression: res.status
       operator: eq
-      value: 200
+      value: "200"
     - expression: res.body.message
       operator: eq
-      value: "User created successfully"
+      value: User created successfully
 
 settings:
   encodeUrl: true
