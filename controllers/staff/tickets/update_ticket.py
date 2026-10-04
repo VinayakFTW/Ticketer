@@ -34,7 +34,7 @@ async def update_ticket(ticket_id: int,
             if update_request.assigned_email is not None:
                 ticket_record.assigned_email = update_request.assigned_email
             if update_request.status is not None:
-                ticket_record.status = update_request.status.upper() if update_request.status in ["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"] else ticket_record.status
+                ticket_record.status = update_request.status.upper() if update_request.status.upper() in ["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"] else ticket_record.status
             ticket_record.last_bump_time = datetime.now()
             ticket_record.bump_count += 1
             s.commit()

@@ -40,6 +40,5 @@ async def get_user_details(user: Annotated[dict, Depends(get_current_user_contex
         except Exception as e:
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
-                message=STATIC_TEXT.user_retrieval_error,
-                data={"error": str(e)},
+                message=STATIC_TEXT.user_retrieval_error
             )
