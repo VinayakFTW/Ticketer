@@ -7,7 +7,7 @@ from typing import Annotated
 from schemas.request_schemas import CreateTicketRequest
 from schemas.postgredb_schema import Ticket, User, Engine
 from constants.enums import TicketStatus
-from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
+from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR,NOT_FOUND
 from utils.server_response import server_response
 from utils.get_laya_decision import get_laya_decision
 from utils.get_llm_response import get_ticket_summary
@@ -37,7 +37,7 @@ async def create_ticket(
             user = s.query(User).filter(User.id == user.get("user_id")).first()
             if not user:
                 return server_response(
-                    status_code=INTERNAL_SERVER_ERROR,
+                    status_code=NOT_FOUND,
                     message=STATIC_TEXT.user_not_found,
                 )
 
@@ -71,5 +71,6 @@ async def create_ticket(
             s.rollback()
             return server_response(
                 status_code=INTERNAL_SERVER_ERROR,
-                message=STATIC_TEXT.ticket_creation_error
+                message=STATIC_TEXT.ticket_creation_error,
+                data=str(e)
             )

@@ -7,7 +7,7 @@ from schemas.postgredb_schema import Subscription, User, Engine
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR, NOT_FOUND
 from constants.enums import UserRole
 from utils.server_response import server_response
-from middleware.dependencies import get_current_user_context, require_roles
+from middleware.dependencies import require_roles
 
 STATIC_TEXT = SimpleNamespace(
     USER_NOT_FOUND="User not found"
@@ -18,11 +18,7 @@ def get_user_subscription(user_id: int, role: Annotated[dict, Depends(require_ro
         try:
             user_record = db.query(User).filter(User.id == user_id).first()
             if not user_record:
-                raise HTTPException(status_code=NOT_FOUND, detail=STATIC_TEXT.USER_NOT_FOUND)
-        except Exception as e:
-            raise HTTPException(status_code=INTERNAL_SERVER_ERROR)
-
-        try:
+                return server_response(status_code=NOT_FOUND, message=STATIC_TEXT.USER_NOT_FOUND)
             subscription = db.query(Subscription).filter(Subscription.user_id == user_id).first()
             if not subscription:
                 return server_response(

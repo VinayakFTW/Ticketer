@@ -36,6 +36,9 @@ class UpdateUserRequest(BaseModel):
     institute: Optional[str] = None
     role: Optional[str] = None
 
+class UpdateSubscriptionRequest(BaseModel):
+    active: bool
+
 class RefreshTokenRequest(BaseModel):
     refresh_token: str
 

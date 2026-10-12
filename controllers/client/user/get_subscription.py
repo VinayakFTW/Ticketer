@@ -19,7 +19,7 @@ def get_user_subscription(user: Annotated[dict, Depends(get_current_user_context
         try:
             user_record = db.query(User).filter(User.id == user_id).first()
             if not user_record:
-                raise HTTPException(status_code=NOT_FOUND, detail=STATIC_TEXT.USER_NOT_FOUND)
+                return server_response(status_code=NOT_FOUND, message=STATIC_TEXT.USER_NOT_FOUND)
         except Exception as e:
             raise HTTPException(status_code=INTERNAL_SERVER_ERROR)
 

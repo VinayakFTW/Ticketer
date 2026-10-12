@@ -25,6 +25,7 @@ runtime:
     - type: after-response
       code: |-
         if (res.body && res.body.data && res.body.data.access_token) {
+            bru.setVar("access_token", res.body.data.access_token);
             bru.setVar("staff_token", res.body.data.access_token);
         }
     - type: tests

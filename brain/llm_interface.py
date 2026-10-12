@@ -1,9 +1,8 @@
 import json
-
 from openai import AsyncOpenAI
 
-from brain.config import ENVIRONMENT_VARIABLES, RESPONSE_FORMAT
-from brain.config import SUMMARY_PROMPT, SYSTEM_PROMPT, TicketSummary
+from brain.config import ENVIRONMENT_VARIABLES
+from brain.config import SUMMARY_PROMPT, SYSTEM_PROMPT
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
 
 

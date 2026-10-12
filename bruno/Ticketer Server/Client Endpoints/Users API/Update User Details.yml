@@ -16,7 +16,7 @@ http:
     data: |-
       {
         "name": "Vinayak Varshney",
-        "institute": "Symbiosis Institute of Technology Pune"
+        "institute": "Symbiosis Institute of Technology Nagpur"
       }
   auth: inherit
 
@@ -36,13 +36,13 @@ runtime:
   assertions:
     - expression: res.status
       operator: eq
-      value: 200
+      value: "200"
     - expression: res.body.message
       operator: eq
-      value: "User details retrieved successfully"
+      value: User details retrieved successfully
     - expression: res.body.data.user.institute
       operator: eq
-      value: "Symbiosis Institute of Technology Pune"
+      value: Symbiosis Institute of Technology Pune
 
 settings:
   encodeUrl: true

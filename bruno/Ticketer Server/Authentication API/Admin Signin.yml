@@ -15,8 +15,8 @@ http:
     type: json
     data: |-
       {
-        "email": "admin@sitpune.edu.in",
-        "password": "AdminPassword@123"
+        "email": "vinayak.varshney.btech2024@sitpune.edu.in",
+        "password": "Vinayak@123"
       }
   auth: inherit
 
@@ -25,6 +25,7 @@ runtime:
     - type: after-response
       code: |-
         if (res.body && res.body.data && res.body.data.access_token) {
+            bru.setVar("access_token", res.body.data.access_token);
             bru.setVar("admin_token", res.body.data.access_token);
         }
     - type: tests

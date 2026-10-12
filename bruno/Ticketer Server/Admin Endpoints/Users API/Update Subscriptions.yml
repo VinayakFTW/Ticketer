@@ -5,7 +5,13 @@ info:
 
 http:
   method: PUT
-  url: ""
+  url: "{{baseUrl}}/admin/users/subscription/renew/1"
+  body:
+    type: json
+    data: |-
+      {
+        "active": true
+      }
   auth: inherit
 
 settings:

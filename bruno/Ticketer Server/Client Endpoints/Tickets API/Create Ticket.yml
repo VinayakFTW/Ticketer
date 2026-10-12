@@ -15,7 +15,7 @@ http:
     type: json
     data: |-
       {
-        "text": "The air conditioning unit in Lab 404 is leaking water heavily onto the floor and computer desks."
+        "text": "i got harassed by professor"
       }
   auth: inherit
 
@@ -44,13 +44,12 @@ runtime:
   assertions:
     - expression: res.status
       operator: eq
-      value: 200
+      value: "200"
     - expression: res.body.message
       operator: eq
-      value: "Ticket created successfully"
+      value: Ticket created successfully
     - expression: res.body.data.ticket_id
       operator: isDefined
-      value: true
 
 settings:
   encodeUrl: true

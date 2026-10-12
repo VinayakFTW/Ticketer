@@ -7,6 +7,6 @@ async def get_laya_decision(user_message):
     }
     decision = await LAYA.get_decision(laya_request)
     decision_result = {
-        "decision": decision.model_dump(),
+        "decision": decision,
     }
     return decision_result

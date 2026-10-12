@@ -6,8 +6,8 @@ from typing import Annotated
 
 from schemas.request_schemas import CreateTicketRequestAdmin
 from schemas.postgredb_schema import Ticket, User, Engine
-from constants.enums import TicketStatus
-from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR
+from constants.enums import TicketStatus, UserRole
+from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR,NOT_FOUND
 from utils.server_response import server_response
 from utils.get_laya_decision import get_laya_decision
 from utils.get_llm_response import get_ticket_summary
@@ -22,7 +22,7 @@ STATIC_TEXT = SimpleNamespace(
 
 
 async def create_ticket(
-    user: Annotated[dict, Depends(require_roles(["ADMIN"]))],
+    user: Annotated[dict, Depends(require_roles([UserRole.ADMIN.value]))],
     ticket_data: CreateTicketRequestAdmin,
 ):
     laya_decision = await get_laya_decision(ticket_data.text)
@@ -38,7 +38,7 @@ async def create_ticket(
             user = s.query(User).filter(User.email == ticket_data.email).first()
             if not user:
                 return server_response(
-                    status_code=INTERNAL_SERVER_ERROR,
+                    status_code=NOT_FOUND,
                     message=STATIC_TEXT.user_not_found,
                 )
 

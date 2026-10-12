@@ -4,6 +4,7 @@ from typing import Annotated
 from fastapi import Depends
 
 from schemas.postgredb_schema import Ticket, Engine
+from constants.enums import UserRole
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR, NOT_FOUND
 from utils.server_response import server_response
 from middleware.dependencies import require_roles
@@ -15,7 +16,8 @@ STATIC_TEXT = SimpleNamespace(
 )
 
 
-async def get_all_tickets(user: Annotated[dict, Depends(require_roles(["ADMIN"]))]):
+
+async def get_all_tickets(user: Annotated[dict, Depends(require_roles([UserRole.ADMIN.value]))]):
     with Session(Engine) as s:
         try:
             tickets = s.query(Ticket).all()
