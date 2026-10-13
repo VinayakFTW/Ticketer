@@ -15,7 +15,7 @@ class LayaRouter:
             else ("cuda" if torch.cuda.is_available() else "cpu")
         )
         self.router = Router(
-            preload=True,
+            preload=False,
             device=device,
         )
 
