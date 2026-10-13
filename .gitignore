@@ -13,5 +13,4 @@ wheels/
 .env
 
 #Others
-aws/
 docs/

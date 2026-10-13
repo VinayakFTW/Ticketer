@@ -1,0 +1,86 @@
+{
+  "family": "ticketer-backend",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "cpu": "2048",
+  "memory": "4096",
+  "executionRoleArn": "arn:aws:iam::944921953100:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::944921953100:role/ticketerTaskRole",
+  "containerDefinitions": [
+    {
+      "name": "ticketer",
+      "image": "944921953100.dkr.ecr.ap-southeast-1.amazonaws.com/ticketer-backend:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "MODE", "value": "prod" },
+        { "name": "PORT", "value": "8000" },
+        { "name": "DEVICE", "value": "cpu" },
+        { "name": "AUTO_MIGRATE", "value": "true" }
+      ],
+      "secrets": [
+        {
+          "name": "POSTGRES_URL",
+          "valueFrom": "arn:aws:ssm:ap-southeast-1:944921953100:parameter/ticketer/POSTGRES_URL"
+        },
+        {
+          "name": "JWT_SECRET_KEY",
+          "valueFrom": "arn:aws:ssm:ap-southeast-1:944921953100:parameter/ticketer/JWT_SECRET_KEY"
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "valueFrom": "arn:aws:ssm:ap-southeast-1:944921953100:parameter/ticketer/OPENAI_API_KEY"
+        },
+        {
+          "name": "OPENAI_BASE_URL",
+          "valueFrom": "arn:aws:ssm:ap-southeast-1:944921953100:parameter/ticketer/OPENAI_BASE_URL"
+        },
+        {
+          "name": "REDIS_HOST",
+          "valueFrom": "arn:aws:ssm:ap-southeast-1:944921953100:parameter/ticketer/REDIS_HOST"
+        },
+        {
+          "name": "REDIS_PORT",
+          "valueFrom": "arn:aws:ssm:ap-southeast-1:944921953100:parameter/ticketer/REDIS_PORT"
+        },
+        {
+          "name": "REDIS_PASSWORD",
+          "valueFrom": "arn:aws:ssm:ap-southeast-1:944921953100:parameter/ticketer/REDIS_PASSWORD"
+        },
+        {
+          "name": "RESEND_API_KEY",
+          "valueFrom": "arn:aws:ssm:ap-southeast-1:944921953100:parameter/ticketer/RESEND_API_KEY"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/ticketer",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "ecs",
+          "awslogs-create-group": "true"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:8000/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 180
+      }
+    }
+  ]
+}
