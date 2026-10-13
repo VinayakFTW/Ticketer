@@ -15,11 +15,10 @@ http:
     type: json
     data: |-
       {
-        "text": "Core datacenter HVAC unit 3 has compressor malfunction and overheating alarm triggered."
+        "email":"vinayak.varshney.btech2024@sitpune.edu.in",
+        "text": "water leaking from pot in toilet"
       }
-  auth:
-    type: bearer
-    token: "{{admin_token}}"
+  auth: inherit
 
 runtime:
   scripts:
@@ -41,13 +40,12 @@ runtime:
   assertions:
     - expression: res.status
       operator: eq
-      value: 200
+      value: "200"
     - expression: res.body.message
       operator: eq
-      value: "Ticket created successfully"
+      value: Ticket created successfully
     - expression: res.body.data.ticket_id
       operator: isDefined
-      value: true
 
 settings:
   encodeUrl: true

@@ -34,12 +34,9 @@ In your terminal paste the following and press enter to install the server depen
 
 1. `git clone "https://github.com/VinayakFTW/Ticketer.git" && cd Ticketer`
 
-2. For macOs/Linux:
-`./setup.sh`
-
+2. For macOs/Linux:<br>`./setup.sh`<br>
     For Windows:
-    cmd<br>`setup.bat`
-
-    powershell<br>`cmd.exe /c .\setup.bat`
+    <br>*CMD*<br>`setup.bat`
+    <br>*PowerShell*<br>`cmd.exe /c .\setup.bat`
 
 And that is all for the setup

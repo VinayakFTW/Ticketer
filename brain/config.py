@@ -47,6 +47,7 @@ ENVIRONMENT_VARIABLES = {
     "REDIS_HOST": os.environ.get("REDIS_HOST"),
     "REDIS_PORT": os.environ.get("REDIS_PORT"),
     "REDIS_PASSWORD": os.environ.get("REDIS_PASSWORD"),
+    "RESEND_API_KEY": os.environ.get("RESEND_API_KEY"),
 }
 
 

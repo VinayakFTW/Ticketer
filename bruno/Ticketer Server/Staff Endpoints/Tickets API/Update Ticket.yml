@@ -7,7 +7,7 @@ info:
 
 http:
   method: PUT
-  url: "{{baseUrl}}/staff/tickets/update/{{ticket_id}}"
+  url: "{{baseUrl}}/staff/tickets/update/20"
   headers:
     - name: Content-Type
       value: application/json
@@ -15,13 +15,10 @@ http:
     type: json
     data: |-
       {
-        "ticket_id": 15,
-        "status": "in_progress",
+        "status": "closed",
         "assigned_email": "staff.tech@sitpune.edu.in"
       }
-  auth:
-    type: bearer
-    token: "{{staff_token}}"
+  auth: inherit
 
 runtime:
   scripts:
@@ -41,13 +38,13 @@ runtime:
   assertions:
     - expression: res.status
       operator: eq
-      value: 200
+      value: "200"
     - expression: res.body.message
       operator: eq
-      value: "Ticket updated successfully"
+      value: Ticket updated successfully
     - expression: res.body.data.ticket.status
       operator: eq
-      value: "in_progress"
+      value: in_progress
 
 settings:
   encodeUrl: true

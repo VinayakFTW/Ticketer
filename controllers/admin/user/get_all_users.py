@@ -5,6 +5,7 @@ from typing import Annotated
 
 from schemas.postgredb_schema import User, Engine
 from constants.server_codes import SUCCESS, INTERNAL_SERVER_ERROR, NOT_FOUND
+from constants.enums import UserRole
 from utils.server_response import server_response
 from middleware.dependencies import require_roles
 
@@ -15,7 +16,7 @@ STATIC_TEXT = SimpleNamespace(
 )
 
 
-async def get_all_users(user: Annotated[dict, Depends(require_roles(["ADMIN"]))]):
+async def get_all_users(user: Annotated[dict, Depends(require_roles([UserRole.ADMIN.value]))]):
     with Session(Engine) as s:
         try:
             users = s.query(User).all()

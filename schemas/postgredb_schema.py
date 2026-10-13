@@ -20,6 +20,7 @@ class User(Base):
     name: Mapped[str] = mapped_column(String, nullable=False)
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String, nullable=False)
+    is_verified: Mapped[bool] = mapped_column(nullable=False, default=False)
     institute: Mapped[Optional[str]] = mapped_column(String, nullable=False)
     role: Mapped[Optional[UserRole]] = mapped_column(
         Enum(UserRole), default=UserRole.STUDENT, nullable=False
@@ -51,3 +52,15 @@ class Ticket(Base):
     last_bump_time: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
     user: Mapped["User"] = relationship("User", back_populates="tickets")
+
+class Subscription(Base):
+    __tablename__ = "subscriptions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("users.id"), nullable=False
+    )
+    active: Mapped[bool] = mapped_column(nullable=False, default=True)
+    renewed_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+
+    user: Mapped["User"] = relationship("User")

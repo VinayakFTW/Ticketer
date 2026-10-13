@@ -1,0 +1,22 @@
+info:
+  name: Signout
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{baseUrl}}/auth/signout"
+  body:
+    type: json
+    data: |-
+      {
+       "refresh_token":"" 
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

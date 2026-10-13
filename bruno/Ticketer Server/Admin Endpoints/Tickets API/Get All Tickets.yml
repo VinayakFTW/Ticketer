@@ -8,9 +8,7 @@ info:
 http:
   method: GET
   url: "{{baseUrl}}/admin/tickets/all"
-  auth:
-    type: bearer
-    token: "{{admin_token}}"
+  auth: inherit
 
 runtime:
   scripts:

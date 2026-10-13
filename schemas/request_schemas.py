@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional
 
 
@@ -36,8 +36,12 @@ class UpdateUserRequest(BaseModel):
     institute: Optional[str] = None
     role: Optional[str] = None
 
+class UpdateSubscriptionRequest(BaseModel):
+    active: bool
+
 class RefreshTokenRequest(BaseModel):
     refresh_token: str
 
-class SignOutRequest(BaseModel):
-    refresh_token: str
+class VerifyOtpRequest(BaseModel):
+    email: EmailStr
+    otp: str

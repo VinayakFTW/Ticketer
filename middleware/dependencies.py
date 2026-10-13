@@ -2,6 +2,7 @@ from typing import Annotated, List
 from fastapi import Request, HTTPException, status, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
+from constants.enums import UserRole
 from brain.config import ENVIRONMENT_VARIABLES
 from utils.jwt_handler import decode_access_token
 
@@ -12,10 +13,12 @@ def get_current_user_context(
     credentials: Annotated[HTTPAuthorizationCredentials, Depends(security)],
     request: Request,
 ) -> dict:
-    if ENVIRONMENT_VARIABLES.get("MODE") == "dev":
-        return {"user_id": 1, "role": "ADMIN"}
     token = credentials.credentials
     payload = decode_access_token(token)
+    
+    if ENVIRONMENT_VARIABLES.get("MODE") == "dev":
+        return {"user_id": 1, "role": UserRole.ADMIN.value}
+    
 
     if not payload or "sub" not in payload:
         raise HTTPException(

@@ -1,0 +1,22 @@
+info:
+  name: Update Subscriptions
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/admin/users/subscription/renew/1"
+  body:
+    type: json
+    data: |-
+      {
+        "active": true
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -26,6 +26,11 @@ def signin(user_data: LoginRequest):
                     status_code=NOT_FOUND,
                     message=STATIC_TEXT.incorrect_info,
                 )
+            if not user.is_verified:
+                return server_response(
+                    status_code=NOT_FOUND,
+                    message="Email not verified. Please verify your email before logging in.",
+                )
 
             access_token = create_access_token(user_id=user.id, role=user.role.value)
             refresh_token = store_refresh_token(user_id=user.id)
