@@ -12,6 +12,13 @@ from middleware.authenticate_user import AuthContextMiddleware
 
 server = FastAPI(title="Ticketer Server", version="0.1.0")
 
+
+@server.get("/health", tags=["Health"])
+@server.get("/api/v1/health", tags=["Health"])
+async def health_check():
+    return {"status": "healthy", "service": "ticketer", "version": "0.1.0"}
+
+
 server.add_middleware(AuthContextMiddleware)
 
 server.add_middleware(
