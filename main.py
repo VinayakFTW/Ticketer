@@ -12,11 +12,25 @@ from middleware.authenticate_user import AuthContextMiddleware
 
 server = FastAPI(title="Ticketer Server", version="0.1.0")
 
+
+@server.get("/health", tags=["Health"])
+@server.get("/api/v1/health", tags=["Health"])
+async def health_check():
+    return {"status": "healthy", "service": "ticketer", "version": "0.1.0"}
+
+
 server.add_middleware(AuthContextMiddleware)
 
 server.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://ticketer.codevaults.org",
+        "https://apiticketer.codevaults.org",
+        "http://apiticketer.codevaults.org",
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:5173",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
