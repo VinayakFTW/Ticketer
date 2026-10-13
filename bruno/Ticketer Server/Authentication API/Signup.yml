@@ -1,7 +1,7 @@
 info:
   name: Signup
   type: http
-  seq: 4
+  seq: 2
   tags:
     - Authentication API
 
@@ -15,9 +15,9 @@ http:
     type: json
     data: |-
       {
-        "name": "Vinayak Varshney",
-        "email": "{{signup_email}}",
-        "password": "Vinayak@123",
+        "name": "Kashif Sheikh",
+        "email": "shaik.kashif.btech2024@sitpune.edu.in",
+        "password": "Kashif@123",
         "institute": "Symbiosis Institute of Technology"
       }
   auth: inherit

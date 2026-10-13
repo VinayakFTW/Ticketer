@@ -20,6 +20,7 @@ class User(Base):
     name: Mapped[str] = mapped_column(String, nullable=False)
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String, nullable=False)
+    is_verified: Mapped[bool] = mapped_column(nullable=False, default=False)
     institute: Mapped[Optional[str]] = mapped_column(String, nullable=False)
     role: Mapped[Optional[UserRole]] = mapped_column(
         Enum(UserRole), default=UserRole.STUDENT, nullable=False
