@@ -1,0 +1,256 @@
+﻿{
+    "events": [
+        {
+            "timestamp": 1791935286107,
+            "message": "  File \"/app/brain/llm_interface.py\", line 37, in generate_summary",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "    response = await self.llm.beta.chat.completions.parse(",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "    ...<5 lines>...",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "    )",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "    ^",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "  File \"/app/.venv/lib/python3.14/site-packages/openai/resources/chat/completions/completions.py\", line 1828, in parse",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "    return await self._post(",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "           ^^^^^^^^^^^^^^^^^",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "    ...<55 lines>...",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "    )",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "    ^",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "  File \"/app/.venv/lib/python3.14/site-packages/openai/_base_client.py\", line 2053, in post",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "  File \"/app/.venv/lib/python3.14/site-packages/openai/_base_client.py\", line 1838, in request",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "    raise self._make_status_error_from_response(err.response) from None",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286107,
+            "message": "openai.PermissionDeniedError: <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-i64SDi11msAkfEb2hS7sI0&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-src-attr &#39;none&#39;; style-src &#39;unsafe-inline&#39;; img-src &#39;self&#39; https://challenges.cloudflare.com; connect-src &#39;self&#39; https://challenges.cloudflare.com; frame-src &#39;self&#39; https://challenges.cloudflare.com blob:; child-src &#39;self&#39; https://challenges.cloudflare.com blob:; worker-src blob:; form-action http: https:; base-uri &#39;self&#39;\"><style>*{box-sizing:border-box;margin:0;padding:0}html{line-height:1.15;-webkit-text-size-adjust:100%;color:#313131;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\"}body{display:flex;flex-direction:column;height:100vh;min-height:100vh}.main-content{margin:8rem auto;padding-left:1.5rem;max-width:60rem}@media (width <= 720px){.main-content{margin-top:4rem}}#challenge-error-text{background-image:url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI0IyMEYwMyIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjQjIwRjAzIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+\");background-repeat:no-repeat;background-size:contain;padding-left:34px}</style><meta http-equiv=\"refresh\" content=\"360\"></head><body><div class=\"main-wrapper\" role=\"main\"><div class=\"main-content\"><noscript><div class=\"h2\"><span id=\"challenge-error-text\">Enable JavaScript and cookies to continue</span></div></noscript></div></div><script nonce=\"i64SDi11msAkfEb2hS7sI0\">(function(){window._cf_chl_opt = {cFPWv: 'g',cH: 'UeRGVquD_57gWJwNUGFusTnQRSsV.5mOTrUrs2PZ2Hc-1791935286-1.2.1.1-IkvPDBXeQQs8UiXlcdvq1t6i2SIlMpsKM84FEPqx2jREoaLGNbl_6kDiA.Gut1ma',cITimeS: '1791935286',cN: 'i64SDi11msAkfEb2hS7sI0',cRay: 'a4a23bb1fd3c3e13',cTplC:0,cTplO:0,cTplV:5,cType: 'managed',cUPMDTk:\"/v1/chat/completions?__cf_chl_tk=d_z9W.w3mHFwDSIcgfC7SrrKILi8qy9xN3o_TNktxZo-1791935286-1.0.1.1-9GU4SA1uwSuMixLnk5yhed1fksqneB_0j0lBcoj3gO8\",cvId: '3',cZone: 'freellm.codevaults.org',fa:\"/v1/chat/completions?__cf_chl_f_tk=d_z9W.w3mHFwDSIcgfC7SrrKILi8qy9xN3o_TNktxZo-1791935286-1.0.1.1-9GU4SA1uwSuMixLnk5yhed1fksqneB_0j0lBcoj3gO8\",md: 'co8YHzc5HiIuVwXwS3.OVsUrBnEPHiUmN1lKKbwMJhQ-1791935286-1.2.1.1-3ewT3.wCa7x7Bm5xsUJZIEWT4hwIdbUd990vqCAC0PYMmsWg6TO0sRLRWYCqKUuEg5w4HifVo_kDuj68xhAC94azLljSb9XS87bvgoK8NFWPZMJwr0C_0e3eKdLBKgxWmihzSbibhLoy2HWCvNbY33v3Gg8ft2pul2YuLQrY1ftFTzX4pFFKWVR1QcAuSRtqszIRyihSZhYRbhCJGqczL1BstPNkg64GZSyQv.GyjJZR00XkdHqfK1z7zSGzr07jiD23B9kGrrftOtSQgWSezvu5ARxxYPH0pN.m9fZ3.0LHFTXJSkzVnuXCDKblYFmI1hTmxcH9Lkm1Q8Nsrzl007Vtnrp5XwCXJJ2dli8H5YinzZJJD6gf.z1OsVvohoFohbl2ppYUDZ5u28bGq1pf8CFSK9ftxmzjrxqT.JrdD9kVkt3Rh.Nnom2qYHJSPZY37RbYZ8qe7UYVaJWX0oIcHVcedDBBLT7Ke.ZM0qGqNmgLxsuhapFMb5MkZrziQWwCsQOLAZcW86rL7FIdK88actsSgN1IOi4QuXhZc4QLCYuRUFXK3T1KlY7VOTc4l17mL5VN2gEsydI4gKxHqFR1GkSjAwc07d_ftXMmxsrZlgesB35uk_zHSWi3xU7I7wyiQTO_Uh5LP7fV_yoZs9305n7z2idE65Sg52cghpwR6e0yVwbxQq1RmFDbExi7n9rbvEkE9PEz13gSL0J7BzaAPywmKKmQtp3EiE4DCLZHLtr5nGqC94ksXrQ2pLVglcos2TeazYj6JURoYcTUNGkBxKepWm.XgdK7MuGby.hDnZeC9658YFgUdXKfrALZzH8K34yucyJ1La9cyLsSOY10utcparLsuymPkIHaWxpteLRXupdriofp9fHJVAs7HtCeaqlIlYvz0EujdA1ekIa6ISOt0b4AwZzXuObFjfPzoCp6BOCHRYiEVkhfi0gOjbT3DjK4abUpRn8KPw3UbL5ZADbZJtzmyCeEN0T4.MuFYKA',mdrd: 'PtAK1Pm8szB4UTXIDbNwtVrEfF1fYkgDlP0AjVzT5kY-1791935286-1.2.1.1-Ha2PpK5AsDoIjOXAaXeEjHuTGb.jsGd9d5Cmtl5OlpTPen69VjT9PGqxThb.azUnWOiB1ahvrnlB4uOp72aonD3jkLt2NrsLl9M852pEUpVwGWVKdiJ9Mnev53CL9Mdctr09c4TKAzCiBTescVVIbTVFhuDIKbqZ2gwZs4sPJyJHjyltYuIfBxFADHIhtvmIgJJyCsSw5WfVRvIkS36XEfCLm2COJXfImJGOPF6hDRZV0ZQ9uK5BgDrjmU508N7yQCA0xIPVyEwKKrhsW85jp8auHE8_kfNpmrYdoBCbrRm9JHb5CFKthQKo3H66_zLTc1KvfI0ra2bmtYBU2HYLHB3.2O8ndB0j5nJzn5FbHvZi4ss_H64CbDnGmn2wR80NShXEPhgkW6AKvOmQE5ad5IW89.q_7dYNxfBomgLlVnxjLEadfdbP8qsPc432mPGnT1Sk50jNz_ItxbCu9jB36VUtyoC_HQgqGCRoAWb50V4DiuKauP3aDnx1255VbAwYkQUKY.789Jy2A_O37.AqNGEZrdjxNz1DK5SCpMiammJdycNCu85H7aTnW6OSIx.Doiv7vZS84zHW9jedub9il2iveuSwDhTOBPuzudPJeUIR6i5Ngn9ZxGp5bHo3lGsAcBszbGAFo788hXZPNOHO5lw6Tjzee7UWlr9KbauOd.cg2mKVdBVxRtU5KUh5NPIiBf8NswYfnIxLOx2kTtUuLdBq_3qNJfR6amyVv7c.5oJda8Z6Fa8PL2rvK.RjemtbVGMM4c7mhMY9krRJZa8jMwZ5_74btm2n12izguW0nqRJ8mD_Vt0SwiJsAqjiaSGfQjnGaLYIvZGxlfRw8Z_fckQpCw6HMRByM5kn9_Ai7y.7z99WFzBY..HXSyAqv1KCIOHokXQGaomzPIlHY..BQqQlZWPiY32pL6NlCdC0jjsRNdBiIUqfv1JwFnU9cTygwFmGnWAcz3g1hFA4GWhp9NozUB4PH1B1Qmbjjk_T6fOCtRNgdNMhiKMDk.NWqP3uNkVk4nZT0clZ3tu7x5CnfkAjoidaqFyVAtX_yMW_R7ZAlKSkvFzeLUQFRzHUrK52kLA8wenGxPkfpjaMuNnwQcb.2FYhpinSwl.W_YOk.8BkfuYEO_UuJIvFh6C_CtryPpEAj3wjHmvhfIBTCVyf1xj7XaYrYTEbLPwqk2UYsoPfUVpyyDmrA6iKnV0GKtH1YyAwUY5rxEnNJZCAe2L_U.epkdA8AxTC0IGRF6Ks0l4_u7EiNU2K1SRxXcOjgGpFGNycrEitwzVro4DdEJxeYlfA5nxHc0GoRQkPn9iD4.wDtLDwSSXT1mAxMA43MMToB2IaN05iOrNSl7.eYI0wIg',};var a = document.createElement('script');a.nonce = 'i64SDi11msAkfEb2hS7sI0';a.src = '/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=a4a23bb1fd3c3e13';window._cf_chl_opt.cOgUHash = location.hash === '' && location.href.indexOf('#') !== -1 ? '#' : location.hash;window._cf_chl_opt.cOgUQuery = location.search === '' && location.href.slice(0, location.href.length - window._cf_chl_opt.cOgUHash.length).indexOf('?') !== -1 ? '?' : location.search;if (window.history && window.history.replaceState) {var ogU = location.pathname + window._cf_chl_opt.cOgUQuery + window._cf_chl_opt.cOgUHash;history.replaceState(null, null,\"/v1/chat/completions?__cf_chl_rt_tk=d_z9W.w3mHFwDSIcgfC7SrrKILi8qy9xN3o_TNktxZo-1791935286-1.0.1.1-9GU4SA1uwSuMixLnk5yhed1fksqneB_0j0lBcoj3gO8\"+ window._cf_chl_opt.cOgUHash);a.onload = function() {history.replaceState(null, null, ogU);}}document.getElementsByTagName('head')[0].appendChild(a);}());</script></body></html>",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935286108,
+            "message": "INFO:     172.31.27.52:28896 - \"POST /api/v1/admin/tickets/create HTTP/1.1\" 500 Internal Server Error",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935288226,
+            "message": "INFO:     172.31.4.122:58508 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935288267,
+            "message": "INFO:     172.31.41.148:63622 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935288396,
+            "message": "INFO:     172.31.27.52:14042 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935290812
+        },
+        {
+            "timestamp": 1791935306196,
+            "message": "INFO:     127.0.0.1:59924 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935310807
+        },
+        {
+            "timestamp": 1791935318243,
+            "message": "INFO:     172.31.4.122:41306 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935320816
+        },
+        {
+            "timestamp": 1791935318298,
+            "message": "INFO:     172.31.41.148:32970 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935320816
+        },
+        {
+            "timestamp": 1791935318410,
+            "message": "INFO:     172.31.27.52:64032 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935320816
+        },
+        {
+            "timestamp": 1791935336196,
+            "message": "INFO:     127.0.0.1:37266 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935340814
+        },
+        {
+            "timestamp": 1791935348274,
+            "message": "INFO:     172.31.4.122:17014 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935350814
+        },
+        {
+            "timestamp": 1791935348328,
+            "message": "INFO:     172.31.41.148:18928 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935350814
+        },
+        {
+            "timestamp": 1791935348441,
+            "message": "INFO:     172.31.27.52:12012 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935350814
+        },
+        {
+            "timestamp": 1791935366226,
+            "message": "INFO:     127.0.0.1:41784 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935370809
+        },
+        {
+            "timestamp": 1791935378284,
+            "message": "INFO:     172.31.4.122:4078 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935380813
+        },
+        {
+            "timestamp": 1791935378359,
+            "message": "INFO:     172.31.41.148:38194 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935380813
+        },
+        {
+            "timestamp": 1791935378472,
+            "message": "INFO:     172.31.27.52:27648 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935380813
+        },
+        {
+            "timestamp": 1791935396197,
+            "message": "INFO:     127.0.0.1:41700 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935400809
+        },
+        {
+            "timestamp": 1791935408314,
+            "message": "INFO:     172.31.4.122:44028 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935410816
+        },
+        {
+            "timestamp": 1791935408382,
+            "message": "INFO:     172.31.41.148:27306 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935410816
+        },
+        {
+            "timestamp": 1791935408501,
+            "message": "INFO:     172.31.27.52:44006 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935410816
+        },
+        {
+            "timestamp": 1791935426206,
+            "message": "INFO:     127.0.0.1:47338 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935430812
+        },
+        {
+            "timestamp": 1791935438331,
+            "message": "INFO:     172.31.4.122:47118 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935440807
+        },
+        {
+            "timestamp": 1791935438411,
+            "message": "INFO:     172.31.41.148:53134 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935440807
+        },
+        {
+            "timestamp": 1791935438506,
+            "message": "INFO:     172.31.27.52:54392 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935440807
+        },
+        {
+            "timestamp": 1791935456207,
+            "message": "INFO:     127.0.0.1:54802 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935460840
+        },
+        {
+            "timestamp": 1791935468358,
+            "message": "INFO:     172.31.4.122:64832 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935470807
+        },
+        {
+            "timestamp": 1791935468442,
+            "message": "INFO:     172.31.41.148:21346 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935470807
+        },
+        {
+            "timestamp": 1791935468531,
+            "message": "INFO:     172.31.27.52:11868 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935470807
+        },
+        {
+            "timestamp": 1791935486196,
+            "message": "INFO:     127.0.0.1:36096 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935490810
+        },
+        {
+            "timestamp": 1791935498382,
+            "message": "INFO:     172.31.4.122:24326 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935500813
+        },
+        {
+            "timestamp": 1791935498472,
+            "message": "INFO:     172.31.41.148:39000 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935500813
+        },
+        {
+            "timestamp": 1791935498540,
+            "message": "INFO:     172.31.27.52:44592 - \"GET /health HTTP/1.1\" 200 OK",
+            "ingestionTime": 1791935500813
+        }
+    ],
+    "nextForwardToken": "f/39961496965142483456750985398132040048784602378781458434/s",
+    "nextBackwardToken": "b/39961492227728278697295119318399262241672244935995555841/s"
+}
